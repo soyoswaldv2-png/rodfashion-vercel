@@ -2,31 +2,39 @@ javascript
 import { put, head } from "@vercel/blob";
 
 export default async function handler(req, res) {
-  // Configuración universal de cabeceras CORS
+  // Configuración de cabeceras CORS universales
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  // Respuesta inmediata a peticiones pre-vuelo del navegador
+  // Respuesta inmediata a peticiones preflight CORS
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
   const BLOB_FILENAME = "catalog.json";
 
+  // Verificación de disponibilidad del token de Vercel Blob
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return res.status(500).json({
+      error: "BLOB_TOKEN_MISSING",
+      message: "Falta conectar Vercel Blob en: Vercel > Storage > tu Blob > Connected Projects > Connect Project."
+    });
+  }
+
   try {
     // ========================================================
-    // 1. GET: Clientes y visitantes consultan el catálogo
+    // 1. GET: Consulta de datos para clientes y visitantes
     // ========================================================
     if (req.method === "GET") {
       try {
         const fileInfo = await head(BLOB_FILENAME);
-        // Se añade timestamp ?t= para evitar caché del navegador y obtener siempre la última versión
+        // Evitar caché agregando timestamp
         const response = await fetch(`${fileInfo.url}?t=${Date.now()}`);
         const data = await response.json();
         return res.status(200).json(data);
-      } catch (notFoundError) {
-        // Valores iniciales si es la primera vez que se consulta
+      } catch (notFound) {
+        // Estructura de respaldo si la base de datos es nueva
         return res.status(200).json({
           status: "default",
           products: [],
@@ -46,14 +54,13 @@ export default async function handler(req, res) {
       const adminSecret = process.env.ADMIN_SECRET_KEY || "rodadmin2026";
       const token = authHeader.replace("Bearer ", "").trim();
 
-      // Validación de seguridad de credenciales
       if (token !== adminSecret) {
         return res.status(401).json({
-          error: "No autorizado. Credencial de administrador inválida."
+          error: "UNAUTHORIZED",
+          message: "Credencial o contraseña de administrador inválida."
         });
       }
 
-      // Procesar datos enviados desde el panel
       const body = req.body || {};
       const payload = {
         products: Array.isArray(body.products) ? body.products : [],
@@ -63,7 +70,7 @@ export default async function handler(req, res) {
         updatedAt: new Date().toISOString()
       };
 
-      // Guardar el archivo JSON de manera pública y persistente en Vercel Blob
+      // Guardar en la nube pública de Vercel Blob
       const blob = await put(BLOB_FILENAME, JSON.stringify(payload), {
         access: "public",
         addRandomSuffix: false
@@ -71,16 +78,17 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         success: true,
-        message: "¡Catálogo guardado exitosamente en Vercel Blob!",
+        message: "¡Catálogo guardado con éxito en Vercel Blob!",
         url: blob.url,
         data: payload
       });
     }
 
-    return res.status(405).json({ error: "Método HTTP no permitido" });
+    return res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+
   } catch (error) {
     return res.status(500).json({
-      error: "Error en el servicio Vercel Blob",
+      error: "INTERNAL_BLOB_ERROR",
       details: error.message
     });
   }
