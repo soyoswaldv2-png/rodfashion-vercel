@@ -1891,6 +1891,51 @@ tailwind.config = {
   // Run on start
   window.addEventListener('DOMContentLoaded', init);
   init();
+  javascript
+// Endpoint relativo para Vercel
+const API_URL = '/api/catalog';
+const ADMIN_KEY = 'rodadmin2026';
+
+// Guardar cambios en Vercel Blob
+async function saveCatalogToCloud(payload) {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ADMIN_KEY}`
+      },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (response.ok) {
+      alert('✅ ¡Catálogo guardado con éxito en Vercel Blob!');
+    } else {
+      alert('❌ Error al guardar: ' + (result.error || 'Verifica la clave.'));
+    }
+  } catch (err) {
+    console.error('Error de red:', err);
+    alert('Error al conectar con /api/catalog');
+  }
+}
+
+// Cargar catálogo actualizado al iniciar la página
+async function loadCatalogFromCloud() {
+  try {
+    const response = await fetch(API_URL);
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.products && data.products.length > 0) {
+        renderProducts(data.products);
+        if (data.exchangeRate) updateExchangeRate(data.exchangeRate);
+      }
+    }
+  } catch (err) {
+    console.warn('Cargando catálogo local...');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadCatalogFromCloud);
 </script>
 
 
