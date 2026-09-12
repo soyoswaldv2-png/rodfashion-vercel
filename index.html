@@ -1938,6 +1938,59 @@ async function loadCatalogFromCloud() {
 document.addEventListener('DOMContentLoaded', loadCatalogFromCloud);
 </script>
 
+  javascript
+// --- Sincronización Automática con Vercel Blob ---
+const API_URL = "/api/catalog";
+const ADMIN_SECRET = "rodadmin2026";
+
+// 1. Cargar catálogo desde la nube al iniciar
+async function loadCatalogFromCloud() {
+  try {
+    const res = await fetch(`${API_URL}?t=${Date.now()}`);
+    if (!res.ok) throw new Error("Error consultando la nube");
+    const data = await res.json();
+    
+    if (data && data.products && data.products.length > 0) {
+      // Actualiza las variables de tu tienda
+      products = data.products;
+      if (data.exchangeRate) exchangeRate = data.exchangeRate;
+      if (data.whatsapp) whatsappNumber = data.whatsapp;
+      renderProducts();
+      updateExchangeDisplay();
+    }
+  } catch (e) {
+    console.warn("Usando catálogo local o por defecto:", e.message);
+  }
+}
+
+// 2. Guardar catálogo en la nube desde el panel de admin
+async function saveCatalogToCloud(payload) {
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${ADMIN_SECRET}`
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    const result = await res.json();
+    if (res.ok && result.success) {
+      alert("✅ ¡Catálogo sincronizado exitosamente en Vercel Blob para todos los dispositivos!");
+      return true;
+    } else {
+      alert("⚠️ Error al guardar: " + (result.message || result.error));
+      return false;
+    }
+  } catch (e) {
+    alert("❌ Error de conexión con la nube de Vercel: " + e.message);
+    return false;
+  }
+}
+
+// Ejecutar carga al abrir la web
+document.addEventListener("DOMContentLoaded", loadCatalogFromCloud);
 
 
 </body></html>
