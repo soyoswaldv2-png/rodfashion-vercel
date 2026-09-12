@@ -1,12 +1,7 @@
-json
 {
   "name": "rodfashion-ve",
   "version": "1.0.0",
   "type": "module",
-  "description": "Catálogo rodfashion.ve con persistencia nativa en Vercel Blob",
-  "scripts": {
-    "start": "npx serve ."
-  },
   "dependencies": {
     "@vercel/blob": "^0.27.1"
   }
