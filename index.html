@@ -1,0 +1,1898 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>rodfashion.ve — Sneaker &amp; Athletic Hub | USA ➔ VE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+      keyframes: { marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } } },
+      animation: { marquee: 'marquee 25s linear infinite' }
+    }
+  }
+}
+</script>
+<style>
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.marquee-paused { animation-play-state: paused !important; }
+</style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col antialiased selection:bg-yellow-300 selection:text-black">
+<!-- Toast Notification -->
+<div aria-live="polite" class="fixed top-5 right-5 z-[100] transform transition-all duration-300 translate-y-[-120%] opacity-0 pointer-events-none flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border-2 font-black text-xs uppercase tracking-wider bg-black text-lime-400 border-lime-400" id="toastNotification">
+<i class="w-5 h-5 text-lime-400" data-lucide="check-circle-2"></i>
+<span id="toastMsg" class="">Mensaje</span>
+</div>
+<!-- Admin Active Floating Banner (Only visible when logged in) -->
+<div class="hidden bg-black border-b-2 border-lime-400 text-white px-4 py-2.5 z-50 sticky top-0 shadow-2xl transition-all" id="adminControlsBar">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-lime-400 text-black font-black text-[10px] tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-emerald-700 animate-ping"></span> MODO ADMIN ACTIVO
+      </span>
+<span class="text-slate-300 font-medium">Tasa:</span>
+<span class="font-extrabold text-lime-400 bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-700" id="adminBarRateDisplay">42.50 Bs/USD</span>
+<span class="text-zinc-600 hidden sm:inline">•</span>
+<span class="text-slate-300 font-medium hidden sm:inline">WhatsApp:</span>
+<span class="font-extrabold text-white bg-zinc-900 px-2 py-0.5 rounded-lg border border-zinc-700 hidden sm:inline" id="adminBarPhoneDisplay">+58 424-4126982</span>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<!-- Cloud Connection Button -->
+
+<!-- Reorder Catalog Trigger Button -->
+<button class="flex items-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-white font-extrabold px-3 py-1.5 rounded-xl uppercase tracking-wider text-[11px] border border-zinc-700 transition" onclick="openReorderModal()" title="Cambiar orden de visualización de los productos">
+<i class="w-3.5 h-3.5 text-lime-400" data-lucide="arrow-up-down"></i>
+<span class="">↕ Reordenar Productos</span>
+</button>
+<!-- Add New Product -->
+<button class="flex items-center gap-1.5 bg-lime-400 hover:bg-lime-500 text-black font-black px-3 py-1.5 rounded-xl uppercase tracking-wider text-[11px] shadow transition" onclick="openProductModal()">
+<i class="w-3.5 h-3.5" data-lucide="plus-circle"></i>
+<span class="">+ Nuevo Calzado</span>
+</button>
+<!-- Settings & Exchange Rate -->
+<button class="flex items-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-white font-extrabold px-3 py-1.5 rounded-xl uppercase tracking-wider text-[11px] border border-zinc-700 transition" onclick="openConfigModal()">
+<i class="w-3.5 h-3.5" data-lucide="settings"></i>
+<span class="">Ajustes &amp; Tasa</span>
+</button>
+<!-- Logout -->
+<button class="flex items-center gap-1.5 bg-red-600 hover:bg-red-700 text-white font-extrabold px-3 py-1.5 rounded-xl uppercase tracking-wider text-[11px] transition" onclick="logoutAdmin()">
+<i class="w-3.5 h-3.5" data-lucide="log-out"></i>
+<span class="">Salir</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Marquee Banner -->
+<div class="bg-black text-white text-[11px] font-black uppercase tracking-widest overflow-hidden py-2 border-b border-zinc-800 relative z-40 flex items-center justify-between">
+<div class="flex-1 overflow-hidden group">
+<div class="flex space-x-8 animate-marquee whitespace-nowrap w-max" id="marqueeTrack">
+<span class="flex items-center gap-2 text-lime-400"><i class="w-3.5 h-3.5 fill-current" data-lucide="zap"></i> ENVÍOS DIRECTOS USA ➔ VENEZUELA (AÉREO &amp; MARÍTIMO)</span>
+<span class="text-zinc-500">•</span>
+<span class="flex items-center gap-2"><i class="w-3.5 h-3.5 text-orange-400 fill-current" data-lucide="flame"></i> CALZADO 100% ORIGINAL DE TIENDAS OFICIALES</span>
+<span class="text-zinc-500">•</span>
+<span class="flex items-center gap-2 text-blue-300"><i class="w-3.5 h-3.5" data-lucide="phone"></i> WHATSAPP: <span class="marqueePhoneDisplay">+58 424-4126982</span></span>
+<span class="text-zinc-500">•</span>
+<span class="text-lime-400 font-extrabold">RODFASHION.VE — SNEAKER &amp; ATHLETIC HUB</span>
+</div>
+</div>
+<div class="px-3 shrink-0 z-10">
+<button aria-label="Pausar desplazamiento" class="p-1 rounded-lg text-zinc-300 hover:text-lime-400 hover:bg-zinc-800 transition" id="marqueeControlBtn" onclick="toggleMarquee()">
+<i class="w-3.5 h-3.5" data-lucide="pause" id="marqueeIcon"></i>
+</button>
+</div>
+</div>
+<!-- Header -->
+<header class="sticky top-0 z-30 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+<!-- Brand Logo -->
+<div class="flex items-center space-x-3 cursor-pointer p-1" onclick="resetFilters()">
+<div class="w-11 h-11 bg-black text-lime-400 rounded-2xl flex items-center justify-center font-black tracking-tighter text-xl shadow-lg border-2 border-lime-400 transform -rotate-3 hover:rotate-0 transition-transform">
+        RF
+      </div>
+<div>
+<div class="flex items-center gap-1.5">
+<h1 class="text-2xl font-black tracking-tighter text-slate-900 italic uppercase">
+            rodfashion<span class="text-lime-600 font-black">.ve</span>
+</h1>
+<span class="bg-black text-lime-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-widest">USA ➔ VE</span>
+</div>
+<p class="text-[10px] tracking-widest uppercase font-bold text-slate-600">Performance &amp; Streetwear Catalog</p>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+<i class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" data-lucide="search"></i>
+<input class="w-full pl-11 pr-8 py-2.5 bg-slate-100 border border-slate-300 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition text-slate-900 placeholder:text-slate-500" id="search-input" oninput="handleSearch(this.value)" placeholder="Buscar Nike, Jordan, Yeezy, Running..." type="text">
+<button class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-black p-1 text-xs font-bold" id="clearSearchBtn" onclick="clearSearch()">✕</button>
+</div>
+<!-- Actions -->
+<div class="hidden md:flex items-center space-x-3">
+<!-- Admin Button -->
+<button aria-label="Acceder al Panel de Administrador" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 border-2 bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-300 shadow-sm" id="adminToggleBtn" onclick="handleAdminButtonClick()">
+<i class="w-3.5 h-3.5" data-lucide="lock" id="adminLockIcon"></i>
+<span id="adminToggleText" class="">Admin</span>
+</button>
+<!-- User Profile Badge -->
+<div class="flex items-center space-x-2 bg-slate-100 border border-slate-300 rounded-full p-1 pr-3" id="userProfileBadge">
+<div class="w-7 h-7 rounded-full bg-slate-600 text-white flex items-center justify-center text-xs font-black" id="userProfileAvatar">
+<i class="w-3.5 h-3.5" data-lucide="user"></i>
+</div>
+<span class="text-xs font-bold text-slate-700 max-w-[150px] truncate" id="userProfileText">Cliente</span>
+</div>
+<!-- Cart Button -->
+<button aria-label="Ver carrito de compras" class="relative p-2.5 bg-lime-400 hover:bg-lime-500 text-black rounded-2xl transition shadow-md flex items-center justify-center border-2 border-black font-black" onclick="openCart()">
+<i class="w-5 h-5 font-bold text-black" data-lucide="shopping-bag"></i>
+<span class="hidden absolute -top-1.5 -right-1.5 bg-black text-lime-400 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white" id="cartCountBadge">0</span>
+</button>
+</div>
+<!-- Mobile Button -->
+<div class="flex md:hidden items-center space-x-2">
+<button class="relative p-2 bg-lime-400 text-black rounded-xl border-2 border-black" onclick="openCart()">
+<i class="w-5 h-5 text-black" data-lucide="shopping-bag"></i>
+<span class="hidden absolute -top-1 -right-1 bg-black text-white text-[9px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center" id="cartCountBadgeMobile">0</span>
+</button>
+<button class="p-2 text-slate-800 bg-slate-100 border border-slate-300 rounded-xl" onclick="toggleMobileMenu()">
+<i class="w-6 h-6" data-lucide="menu"></i>
+</button>
+</div>
+</div>
+<!-- Mobile Drawer Menu -->
+<div class="hidden md:hidden border-t border-slate-200 px-4 pt-3 pb-5 space-y-3 bg-white" id="mobileMenu">
+<div class="relative">
+<i class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" data-lucide="search"></i>
+<input class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900 placeholder:text-slate-500" id="mobile-search-input" oninput="handleSearch(this.value)" placeholder="Buscar modelo o marca..." type="text">
+</div>
+<div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+<button class="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-900 font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 border border-slate-300" onclick="handleAdminButtonClick()">
+<i class="w-4 h-4" data-lucide="lock" id="mobileAdminLockIcon"></i>
+<span id="adminToggleTextMobile" class="">Panel de Administrador</span>
+</button>
+<button class="hidden w-full py-2 px-3 bg-zinc-900 text-lime-400 font-extrabold text-xs rounded-xl items-center justify-center gap-2 border border-zinc-700" id="mobileReorderBtn" onclick="openReorderModal()">
+<i class="w-4 h-4" data-lucide="arrow-up-down"></i>
+<span class="">↕ Reordenar Productos</span>
+</button>
+<button class="hidden w-full py-2 px-3 bg-zinc-800 text-white font-extrabold text-xs rounded-xl items-center justify-center gap-2 border border-zinc-700" id="mobileCloudBtn" onclick="openCloudConfigModal()">
+<i class="w-4 h-4 text-lime-400" data-lucide="cloud"></i>
+<span class="">☁️ Conectar Nube / API</span>
+</button>
+<button class="hidden w-full py-2 px-3 bg-lime-400 text-black font-extrabold text-xs rounded-xl items-center justify-center gap-2 border border-black" id="mobileNewProdBtn" onclick="openProductModal()">
+<i class="w-4 h-4" data-lucide="plus-circle"></i>
+<span class="">+ Nuevo Calzado</span>
+</button>
+<button class="hidden w-full py-2 px-3 bg-zinc-800 text-white font-extrabold text-xs rounded-xl items-center justify-center gap-2 border border-zinc-700" id="mobileConfigBtn" onclick="openConfigModal()">
+<i class="w-4 h-4" data-lucide="settings"></i>
+<span class="">Ajustes &amp; Tasa</span>
+</button>
+<button class="hidden w-full py-2 px-3 bg-red-600 text-white font-extrabold text-xs rounded-xl items-center justify-center gap-2" id="mobileLogoutBtn" onclick="logoutAdmin()">
+<span class="">Cerrar Sesión Admin</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-slate-950 via-zinc-900 to-black text-white py-14 px-4 sm:px-6 lg:px-8 border-b-4 border-lime-400">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+<div class="space-y-4 max-w-2xl text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-lime-400/10 border border-lime-400/30 text-lime-400 text-xs font-black uppercase tracking-widest">
+<i class="w-4 h-4 fill-current" data-lucide="zap"></i>
+<span class="">Importación Directa USA 🇺🇸 ➔ 🇻🇪</span>
+</div>
+<h2 class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter leading-none uppercase">
+        DROP EXCLUSIVO DE <span class="text-transparent bg-clip-text bg-gradient-to-r from-lime-400 via-emerald-300 to-teal-200">SNEAKERS</span>
+</h2>
+<p class="text-slate-200 text-sm sm:text-base font-medium max-w-xl leading-relaxed">
+        Consigue las últimas tendencias en calzado deportivo, running y streetwear importados desde las tiendas más prestigiosas de Estados Unidos con entrega 100% garantizada en Venezuela.
+      </p>
+<div class="pt-3 flex flex-wrap justify-center md:justify-start gap-4 text-xs font-bold text-slate-200">
+<div class="flex items-center gap-2 bg-zinc-900/80 px-3.5 py-2 rounded-xl border border-zinc-700">
+<i class="w-4 h-4 text-lime-400" data-lucide="check-circle-2"></i>
+<span class="">100% Auténticos</span>
+</div>
+<div class="flex items-center gap-2 bg-zinc-900/80 px-3.5 py-2 rounded-xl border border-zinc-700">
+<i class="w-4 h-4 text-blue-300" data-lucide="plane"></i>
+<span class="">Envíos Aéreos &amp; Marítimos</span>
+</div>
+<div class="flex items-center gap-2 bg-zinc-900/80 px-3.5 py-2 rounded-xl border border-zinc-700">
+<i class="w-4 h-4 text-emerald-400" data-lucide="phone"></i>
+<span class="heroPhoneDisplay">+58 424-4126982</span>
+</div>
+</div>
+</div>
+<!-- Featured Hero Card (Always shows Product #1) -->
+<div class="w-full md:w-80 bg-gradient-to-b from-zinc-800 to-zinc-900 p-5 rounded-3xl border border-zinc-700 shadow-2xl relative group">
+<div class="absolute top-3 right-3 bg-lime-400 text-black font-black text-[10px] uppercase px-2 py-0.5 rounded tracking-wider">
+        PAR #1 DE PORTADA
+      </div>
+<div class="w-full h-48 rounded-2xl overflow-hidden bg-black mb-4 border border-zinc-800 relative">
+<img alt="Air Jordan 1 Chicago" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" id="heroFeaturedImg" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+</div>
+<h4 class="font-black text-white text-base italic uppercase tracking-tight" id="heroFeaturedTitle">Air Jordan 1 Chicago</h4>
+<div class="flex flex-col mt-2">
+<div class="flex items-baseline gap-2">
+<span class="text-xl font-black text-lime-400" id="heroFeaturedUsd">$185 USD</span>
+<span class="text-xs font-bold text-slate-300" id="heroFeaturedBs">7.862,50 Bs.</span>
+</div>
+<div class="flex justify-end mt-2">
+<button class="bg-white text-black hover:bg-lime-400 font-extrabold text-xs px-3 py-1.5 rounded-xl transition uppercase tracking-wider" onclick="openProductDetail(0)">
+            Ver Par
+          </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Catalog -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<!-- Brand & Category Filters -->
+<div class="space-y-4">
+<div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+<span class="text-xs font-black uppercase text-slate-700 pr-2 flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="tag"></i> Marcas:
+      </span>
+<div class="flex items-center space-x-2" id="brandsContainer"></div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+<div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+<span class="text-xs font-black uppercase text-slate-700 pr-2 flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="filter"></i> Estilos:
+        </span>
+<div class="flex items-center space-x-2" id="categoriesContainer"></div>
+</div>
+<div class="flex items-center gap-2 text-xs font-bold text-slate-700 self-end md:self-auto bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+<span class="text-slate-500">Tasa Referencial:</span>
+<span class="font-black text-slate-900" id="rateInfoBadge">1 USD = 42.50 Bs.</span>
+</div>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid"></div>
+<!-- Empty State -->
+<div class="hidden py-20 text-center bg-white border-2 border-dashed border-slate-300 rounded-3xl p-8 max-w-lg mx-auto" id="emptyState">
+<i class="w-14 h-14 text-slate-400 mx-auto mb-3" data-lucide="shopping-bag"></i>
+<h3 class="text-lg font-black uppercase text-slate-800">Sin resultados encontrados</h3>
+<p class="text-xs text-slate-600 font-medium mt-1">Prueba cambiando la marca, categoría o limpia la búsqueda.</p>
+<button class="mt-4 bg-black text-white text-xs font-black px-4 py-2 rounded-xl uppercase tracking-wider hover:bg-slate-800" onclick="resetFilters()">
+      Ver Todo el Catálogo
+    </button>
+</div>
+</main>
+<!-- PRODUCT DETAIL MODAL -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md hidden" id="productDetailModal" role="dialog">
+<div class="bg-white rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl relative border-2 border-black">
+<button aria-label="Cerrar modal" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-black text-sm hover:bg-lime-400 hover:text-black transition" onclick="closeProductDetail()">✕</button>
+<div class="w-full h-80 bg-slate-100 relative">
+<img alt="Zapato" class="w-full h-full object-cover" id="modalDetailImage" src="">
+<div class="absolute bottom-4 left-4 bg-black/80 text-lime-400 px-3 py-1 rounded-xl text-xs font-black uppercase tracking-widest" id="modalDetailTag">
+        Marca • Estilo
+      </div>
+</div>
+<div class="p-6 space-y-5">
+<div>
+<h3 class="text-2xl font-black text-slate-900 uppercase italic tracking-tight" id="modalDetailTitle">Nombre</h3>
+<p class="text-xs text-slate-600 font-medium mt-2 leading-relaxed" id="modalDetailDesc">Descripción</p>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="text-xs font-black text-slate-900 uppercase tracking-wider">Selecciona tu Talla (US):</label>
+<span class="text-[10px] text-slate-600 font-bold uppercase">Medidas Estándar EE.UU.</span>
+</div>
+<div class="flex flex-wrap gap-2" id="modalDetailSizes"></div>
+</div>
+<div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<span class="text-[10px] text-slate-600 font-bold uppercase tracking-wider block">Precio Final</span>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-black text-slate-900" id="modalDetailPrice">$0 USD</span>
+<span class="text-xs font-extrabold text-lime-700 bg-lime-100 px-2 py-0.5 rounded-lg" id="modalDetailPriceBs">0 Bs.</span>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<button class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 font-black text-xs px-4 py-3.5 rounded-2xl uppercase tracking-wider transition" onclick="addCurrentModalToCart()">
+<i class="w-4 h-4" data-lucide="shopping-cart"></i>
+<span class="">Agregar</span>
+</button>
+<button class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs px-5 py-3.5 rounded-2xl shadow-lg transition uppercase tracking-wider" onclick="buyCurrentModalWhatsApp()">
+<i class="w-4 h-4 fill-current" data-lucide="phone"></i>
+<span class="">Pedir WhatsApp</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CART DRAWER -->
+<div aria-modal="true" class="hidden fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-xs" id="cartDrawer" role="dialog">
+<div class="bg-white max-w-md w-full h-full flex flex-col justify-between p-6 shadow-2xl border-l-4 border-black animate-in slide-in-from-right duration-300">
+<div>
+<div class="flex items-center justify-between border-b border-slate-200 pb-4">
+<div class="flex items-center gap-2">
+<i class="w-5 h-5 text-black" data-lucide="shopping-bag"></i>
+<h3 class="text-lg font-black uppercase tracking-tight text-slate-900">Tu Carrito de Compras</h3>
+</div>
+<button aria-label="Cerrar carrito" class="p-2 text-slate-600 hover:text-black font-black text-lg rounded-xl" onclick="closeCart()">✕</button>
+</div>
+<div class="divide-y divide-slate-100 max-h-[55vh] overflow-y-auto my-4 pr-1" id="cartList">
+<div class="py-12 text-center text-slate-600 font-extrabold text-xs uppercase tracking-wider">El carrito está vacío</div>
+</div>
+</div>
+<div class="border-t border-slate-200 pt-4 space-y-3">
+<div class="space-y-1">
+<div class="flex justify-between items-center text-xs font-bold uppercase text-slate-500">
+<span class="">Total USD:</span>
+<span class="text-base text-slate-900 font-black" id="cartSubtotal">$0 USD</span>
+</div>
+<div class="flex justify-between items-center text-sm font-black uppercase">
+<span class="">Total Bolívares (Bs.):</span>
+<span class="text-xl text-emerald-700 font-black" id="cartSubtotalBs">0,00 Bs.</span>
+</div>
+<div class="text-[10px] text-slate-500 font-bold text-right" id="cartRateNote">Tasa aplicada: 42.50 Bs/USD</div>
+</div>
+<p class="text-[10px] text-slate-600 font-semibold leading-relaxed">
+        * El envío a Venezuela se coordina directamente por WhatsApp (<span class="footerPhoneText">+58 424-4126982</span>).
+      </p>
+<button class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl flex items-center justify-center gap-2 transition" disabled="" id="checkoutBtn" onclick="handleWhatsAppCheckout()">
+<i class="w-4 h-4 fill-current" data-lucide="phone"></i>
+<span class="">Enviar Pedido a WhatsApp</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ADMIN LOGIN MODAL -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden" id="adminLoginModal" role="dialog">
+<div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-2 border-black">
+<div class="bg-black text-white px-6 py-5 flex items-center justify-between border-b-2 border-lime-400">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-lime-400 text-black flex items-center justify-center font-black text-sm">
+<i class="w-4 h-4" data-lucide="shield-check"></i>
+</div>
+<div>
+<h3 class="font-black text-base uppercase tracking-tight">Panel de Administración</h3>
+<p class="text-[10px] text-lime-400 font-bold uppercase tracking-wider">Acceso Restringido</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center font-black hover:bg-lime-400 hover:text-black transition" onclick="closeAdminLoginModal()">✕</button>
+</div>
+<form class="p-6 space-y-4" onsubmit="handleAdminLogin(event)">
+<div class="hidden p-3 rounded-xl bg-red-50 border border-red-300 text-red-700 text-xs font-bold flex items-start gap-2" id="loginErrorMsg">
+<i class="w-4 h-4 shrink-0 mt-0.5" data-lucide="alert-circle"></i>
+<span id="loginErrorText" class="">Usuario o contraseña incorrectos.</span>
+</div>
+<div class="space-y-1.5">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="loginUser">Usuario</label>
+<input autocomplete="username" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="loginUser" placeholder="Usuario administrador" required="" type="text">
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="loginPassword">Contraseña / PIN</label>
+<button class="text-[10px] font-bold text-slate-500 hover:text-black" onclick="togglePasswordVisibility()" type="button">
+<span id="togglePasswordText" class="">Mostrar</span>
+</button>
+</div>
+<input autocomplete="current-password" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="loginPassword" placeholder="Contraseña" required="" type="password">
+</div>
+<button class="w-full py-3.5 bg-black hover:bg-lime-400 hover:text-black text-lime-400 font-black text-xs uppercase tracking-widest rounded-xl transition border-2 border-black flex items-center justify-center gap-2" type="submit">
+<i class="w-4 h-4" data-lucide="key-round"></i>
+<span class="">Ingresar al Panel</span>
+</button>
+</form>
+</div>
+</div>
+<!-- ADMIN REORDER MODAL (ONLY FOR ADMIN) -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden" id="reorderModal" role="dialog">
+<div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border-2 border-black max-h-[92vh] flex flex-col">
+<div class="bg-black text-white px-6 py-4 flex items-center justify-between border-b-2 border-lime-400 shrink-0">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-lime-400 text-black flex items-center justify-center font-black">
+<i class="w-4 h-4" data-lucide="arrow-up-down"></i>
+</div>
+<div>
+<h3 class="font-black text-base uppercase tracking-tight">Reordenar Orden de Catálogo</h3>
+<p class="text-[10px] text-lime-400 font-bold uppercase tracking-wider">El calzado #1 ocupa automáticamente la vitrina principal 'Drop Exclusivo'</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center font-black hover:bg-lime-400 hover:text-black transition" onclick="closeReorderModal()">✕</button>
+</div>
+<div class="p-3 bg-slate-100 border-b border-slate-200 text-xs font-bold text-slate-700 flex items-center justify-between">
+<span class="flex items-center gap-1.5"><i class="w-4 h-4 text-lime-600" data-lucide="info"></i> Usa las flechas para subir/bajar o haz clic en '⭐ Hero' para ponerlo de #1.</span>
+<span class="font-black text-[11px] bg-black text-lime-400 px-2.5 py-1 rounded-lg" id="reorderCountBadge">6 Pares</span>
+</div>
+<!-- Reorder Items Container -->
+<div class="p-6 space-y-2.5 overflow-y-auto divide-y divide-slate-100 flex-1" id="reorderItemsList"></div>
+<div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center gap-2 shrink-0">
+<button class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-200" onclick="closeReorderModal()" type="button">Cerrar</button>
+<button class="px-6 py-2.5 rounded-xl bg-black hover:bg-lime-400 hover:text-black text-lime-400 font-black text-xs uppercase tracking-wider transition border-2 border-black flex items-center gap-2 shadow" onclick="saveReorderChanges()" type="button">
+<i class="w-4 h-4" data-lucide="check"></i>
+<span class="">Guardar y Aplicar Orden</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CLOUD CONNECTION / API MODAL & STEP-BY-STEP GUIDE -->
+
+<!-- CONFIG MODAL (Tasa de Cambio USD a Bs & WhatsApp) -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden" id="adminConfigModal" role="dialog">
+<div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-2 border-black">
+<div class="bg-black text-white px-6 py-4 flex items-center justify-between border-b-2 border-lime-400">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-lime-400 text-black flex items-center justify-center font-black">
+<i class="w-4 h-4" data-lucide="sliders-horizontal"></i>
+</div>
+<h3 class="font-black text-base uppercase tracking-tight">Ajustes: Tasa &amp; WhatsApp</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center font-black hover:bg-lime-400 hover:text-black transition" onclick="closeConfigModal()">✕</button>
+</div>
+<form class="p-6 space-y-5" onsubmit="handleConfigSubmit(event)">
+<div class="p-4 bg-lime-50 rounded-2xl border border-lime-300 space-y-3">
+<div class="flex items-center justify-between">
+<label class="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5" for="cfgRateInput">
+<i class="w-4 h-4 text-lime-700" data-lucide="coins"></i>
+            Tasa de Cambio (Bs. por 1 USD)
+          </label>
+<span class="text-[10px] font-bold text-lime-800 bg-lime-200 px-2 py-0.5 rounded">Tasa Referencial</span>
+</div>
+<div class="relative">
+<input class="w-full pl-4 pr-16 py-2.5 rounded-xl border border-lime-400 bg-white text-base font-black text-slate-900 focus:ring-2 focus:ring-black focus:outline-none" id="cfgRateInput" min="1" required="" step="0.01" type="number">
+<span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-black text-slate-500">Bs/USD</span>
+</div>
+<p class="text-[11px] text-slate-600 font-medium">Todos los precios se recalculan automáticamente en Bolívares.</p>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5" for="cfgPhoneInput">
+<i class="w-4 h-4 text-emerald-600" data-lucide="phone"></i>
+          Número de WhatsApp para Pedidos
+        </label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold text-slate-900 focus:ring-2 focus:ring-black focus:outline-none" id="cfgPhoneInput" placeholder="Ej: 584244126982" required="" type="text">
+</div>
+<div class="pt-3 border-t border-slate-200 flex justify-between items-center gap-2">
+<button class="px-3.5 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-800 text-xs font-extrabold flex items-center gap-1.5 transition" onclick="confirmResetFactory()" type="button">
+<i class="w-3.5 h-3.5" data-lucide="rotate-ccw"></i>
+<span class="">Restablecer Fábrica</span>
+</button>
+<div class="flex gap-2">
+<button class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100" onclick="closeConfigModal()" type="button">Cancelar</button>
+<button class="px-5 py-2.5 rounded-xl bg-black hover:bg-lime-400 hover:text-black text-lime-400 font-black text-xs uppercase tracking-wider transition border-2 border-black" type="submit">Guardar Ajustes</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- ADMIN ADD/EDIT PRODUCT MODAL -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden" id="productFormModal" role="dialog">
+<div class="bg-white rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl border-2 border-black max-h-[90vh] flex flex-col">
+<div class="bg-black text-white px-6 py-4 flex items-center justify-between border-b-2 border-lime-400 shrink-0">
+<h3 class="font-black text-base uppercase tracking-tight" id="formModalTitle">Gestión de Calzado</h3>
+<button class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center font-black hover:bg-lime-400 hover:text-black transition" onclick="closeProductModal()">✕</button>
+</div>
+<form class="p-6 space-y-4 overflow-y-auto" id="productForm" onsubmit="handleProductFormSubmit(event)">
+<input id="formProductId" type="hidden" value="">
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formTitle">Título / Modelo *</label>
+<input class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formTitle" placeholder="Ej: Nike Dunk Low Retro White Black" required="" type="text">
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formBrand">Marca *</label>
+<select class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formBrand" required="">
+<option value="Nike">Nike</option>
+<option value="Adidas">Adidas</option>
+<option value="Jordan">Jordan</option>
+<option value="Puma">Puma</option>
+<option value="New Balance">New Balance</option>
+<option value="Asics">Asics</option>
+<option value="Yeezy">Yeezy</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formCategory">Estilo / Categoría *</label>
+<select class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formCategory" required="">
+<option value="Sneakers">Sneakers</option>
+<option value="Running">Running</option>
+<option value="Basketball">Basketball</option>
+<option value="Casual Sport">Casual Sport</option>
+<option value="Edición Limitada">Edición Limitada</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formPrice">Precio USD ($) *</label>
+<input class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formPrice" min="1" placeholder="Ej: 150" required="" step="0.5" type="number">
+</div>
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formBadge">Distintivo (Badge)</label>
+<select class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formBadge">
+<option value="NEW">NEW</option>
+<option value="TOP SELLER">TOP SELLER</option>
+<option value="HOT">HOT</option>
+<option value="USA EXCLUSIVE">USA EXCLUSIVE</option>
+<option value="OFERTA">OFERTA</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formSizes">Tallas Disponibles (separadas por coma) *</label>
+<input class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formSizes" placeholder="7.5, 8, 8.5, 9, 9.5, 10, 11" required="" type="text">
+</div>
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formImage">URL de Imagen</label>
+<input class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold focus:ring-2 focus:ring-black focus:outline-none" id="formImage" placeholder="https://... (opcional)" type="url">
+</div>
+<div class="space-y-1">
+<label class="block text-xs font-black uppercase tracking-wider text-slate-700" for="formDescription">Descripción Breve</label>
+<textarea class="w-full px-4 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-medium focus:ring-2 focus:ring-black focus:outline-none" id="formDescription" placeholder="Detalles de autenticidad, materiales y tecnología..." rows="2"></textarea>
+</div>
+<div class="pt-3 border-t border-slate-200 flex justify-end gap-2 shrink-0">
+<button class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100" onclick="closeProductModal()" type="button">Cancelar</button>
+<button class="px-5 py-2.5 rounded-xl bg-black hover:bg-lime-400 hover:text-black text-lime-400 font-black text-xs uppercase tracking-wider transition border-2 border-black" type="submit">Guardar Zapato</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-black text-slate-300 py-12 border-t-4 border-lime-400">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-3">
+<h4 class="text-white text-xl font-black italic tracking-tighter uppercase flex items-center gap-2">
+        rodfashion<span class="text-lime-400 font-black">.ve</span>
+</h4>
+<p class="text-xs text-slate-300 leading-relaxed font-medium">
+        Plataforma virtual especializada en la selección, venta e importación directa de calzado deportivo y streetwear exclusivo desde Estados Unidos a toda Venezuela.
+      </p>
+<div class="pt-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-slate-300 hover:text-lime-400 rounded-xl text-xs font-black border border-zinc-700 transition" onclick="handleAdminButtonClick()">
+<i class="w-3.5 h-3.5" data-lucide="shield"></i>
+<span class="">Acceso Administración</span>
+</button>
+</div>
+</div>
+<div class="space-y-2 text-xs font-medium">
+<h5 class="text-white font-black uppercase tracking-widest text-xs mb-3 text-lime-400">Servicios de Logística</h5>
+<p class="text-slate-200">✈️ Envíos Aéreos Prioritarios (Express)</p>
+<p class="text-slate-200">🚢 Envíos Marítimos Consolidados</p>
+<p class="text-slate-200">📦 Entregas directas a nivel nacional en Venezuela</p>
+</div>
+<div class="space-y-3 text-xs">
+<h5 class="text-white font-black uppercase tracking-widest text-xs text-lime-400">Atención Directa &amp; WhatsApp</h5>
+<p class="text-slate-200 flex items-center gap-2 font-semibold">
+<i class="w-3.5 h-3.5 text-emerald-400" data-lucide="phone"></i>
+        WhatsApp: <span class="footerPhoneText">+58 424-4126982</span>
+</p>
+<p class="text-slate-200 flex items-center gap-2 font-semibold">
+<i class="w-3.5 h-3.5 text-blue-300" data-lucide="mail"></i> Contacto: owsuper85@gmail.com
+      </p>
+<button class="mt-2 inline-flex items-center gap-2 bg-lime-400 text-black font-black px-4 py-2.5 rounded-xl text-xs hover:bg-lime-500 transition uppercase tracking-wider" onclick="consultWhatsAppFooter()">
+<i class="w-4 h-4 fill-current text-black" data-lucide="phone"></i> Consultar por WhatsApp
+      </button>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-zinc-800 text-center text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
+    © 2026 RODFASHION.VE — TODOS LOS DERECHOS RESERVADOS. SNEAKERHEAD USA TO VE.
+  </div>
+</footer>
+<script>
+  // Storage Keys
+  const STORAGE_KEY_PRODUCTS = 'rodfashion_products_v1';
+  const STORAGE_KEY_RATE = 'rodfashion_bcv_rate';
+  const STORAGE_KEY_WHATSAPP = 'rodfashion_whatsapp';
+  const STORAGE_KEY_CLOUD_ENDPOINT = 'rodfashion_cloud_endpoint';
+  const STORAGE_KEY_CLOUD_KEY = 'rodfashion_cloud_key';
+  const STORAGE_KEY_CLOUD_METHOD = 'rodfashion_cloud_method';
+
+  const DEFAULT_FALLBACK_IMAGE = "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=800";
+
+  const INITIAL_PRODUCTS = [
+    {
+      id: "prod-1",
+      title: "Air Jordan 1 Retro High OG 'Chicago'",
+      brand: "Jordan",
+      category: "Basketball",
+      price: 185,
+      badge: "TOP SELLER",
+      sizes: ["7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"],
+      image: "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=800",
+      description: "Ícono indiscutible del baloncesto y streetwear mundial. Importado directo desde tiendas oficiales de EE. UU."
+    },
+    {
+      id: "prod-2",
+      title: "Nike Air Max 270 React 'Volt'",
+      brand: "Nike",
+      category: "Running",
+      price: 135,
+      badge: "HOT",
+      sizes: ["8", "8.5", "9", "9.5", "10", "11"],
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
+      description: "Amortiguación de máximo impacto con diseño futurista. Envíos prioritarios para Venezuela."
+    },
+    {
+      id: "prod-3",
+      title: "Adidas Yeezy Boost 350 V2",
+      brand: "Adidas",
+      category: "Edición Limitada",
+      price: 240,
+      badge: "USA EXCLUSIVE",
+      sizes: ["7.5", "8.5", "9.5", "10.5"],
+      image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&q=80&w=800",
+      description: "Tecnología Primeknit y suela de respuesta Boost ultra liviana. 100% auténticos."
+    },
+    {
+      id: "prod-4",
+      title: "Puma RS-X3 Puzzle Athletic",
+      brand: "Puma",
+      category: "Sneakers",
+      price: 95,
+      badge: "NEW",
+      sizes: ["6.5", "7", "8", "8.5", "9", "10"],
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800",
+      description: "Estilo retro moderno voluminoso con detalles multiculturales. Entrega rápida."
+    },
+    {
+      id: "prod-5",
+      title: "New Balance 9060 'Sea Salt'",
+      brand: "New Balance",
+      category: "Casual Sport",
+      price: 160,
+      badge: "TOP SELLER",
+      sizes: ["8", "9", "9.5", "10", "11", "12"],
+      image: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&q=80&w=800",
+      description: "Reinterpretación dramática de los modelos clásicos 99X con barras estabilizadoras visuales."
+    },
+    {
+      id: "prod-6",
+      title: "Nike ZoomX Vaporfly NEXT% 2",
+      brand: "Nike",
+      category: "Running",
+      price: 210,
+      badge: "HOT",
+      sizes: ["8.5", "9", "10", "10.5"],
+      image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=800",
+      description: "Zapatilla de carreras para romper tus récords personales. Con placa de fibra de carbono."
+    }
+  ];
+
+  // Application State
+  let whatsappNumber = "584244126982";
+  let formattedPhone = "+58 424-4126982";
+  let usdToBsRate = 42.50;
+  let isAuthenticatedAdmin = false;
+  let isMarqueePaused = false;
+  let products = [];
+  let cart = [];
+  let activeCategory = "Todos";
+  let activeBrand = "Todas";
+  let searchTerm = "";
+  let selectedProductModal = null;
+  let selectedSizeModal = "";
+
+  // Cloud API State
+  let cloudEndpoint = "";
+  let cloudApiKey = "";
+  let cloudMethod = "PUT";
+  let isCloudConnected = false;
+
+  const categories = ["Todos", "Sneakers", "Running", "Basketball", "Casual Sport", "Edición Limitada"];
+  let brands = ["Todas", "Nike", "Adidas", "Jordan", "Puma", "New Balance"];
+
+  function formatPhoneDisplay(raw) {
+    if (raw.startsWith('58') && raw.length >= 12) {
+      return `+58 ${raw.substring(2, 5)}-${raw.substring(5)}`;
+    }
+    return `+${raw}`;
+  }
+
+  function loadPersistedState() {
+    const storedPhone = localStorage.getItem(STORAGE_KEY_WHATSAPP);
+    if (storedPhone && storedPhone.trim()) {
+      whatsappNumber = storedPhone.trim();
+      formattedPhone = formatPhoneDisplay(whatsappNumber);
+    }
+
+    const storedRate = localStorage.getItem(STORAGE_KEY_RATE);
+    if (storedRate) {
+      const parsedRate = parseFloat(storedRate);
+      if (!isNaN(parsedRate) && parsedRate > 0) {
+        usdToBsRate = parsedRate;
+      }
+    }
+
+    const storedProducts = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+    if (storedProducts) {
+      try {
+        const parsed = JSON.parse(storedProducts);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          products = parsed;
+        } else {
+          products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+          saveProductsToStorage();
+        }
+      } catch (e) {
+        products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+        saveProductsToStorage();
+      }
+    } else {
+      products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+      saveProductsToStorage();
+    }
+
+    cloudEndpoint = localStorage.getItem(STORAGE_KEY_CLOUD_ENDPOINT) || "";
+    cloudApiKey = localStorage.getItem(STORAGE_KEY_CLOUD_KEY) || "";
+    cloudMethod = localStorage.getItem(STORAGE_KEY_CLOUD_METHOD) || "PUT";
+    if (cloudEndpoint && cloudEndpoint.trim().startsWith("http")) {
+      isCloudConnected = true;
+    }
+
+    refreshBrandList();
+  }
+
+  function saveProductsToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      if (isCloudConnected && cloudEndpoint) {
+        syncToCloudSilently();
+      }
+    } catch (err) {
+      console.error("Error guardando en localStorage:", err);
+    }
+  }
+
+  function refreshBrandList() {
+    const defaultBrands = ["Todas", "Nike", "Adidas", "Jordan", "Puma", "New Balance"];
+    const productBrands = products.map(p => p.brand).filter(Boolean);
+    brands = Array.from(new Set([...defaultBrands, ...productBrands]));
+  }
+
+  function formatBs(usdAmount) {
+    const bs = (Number(usdAmount) * usdToBsRate);
+    return bs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+  }
+
+  function toggleMarquee() {
+    const track = document.getElementById('marqueeTrack');
+    const btn = document.getElementById('marqueeControlBtn');
+    const icon = document.getElementById('marqueeIcon');
+    isMarqueePaused = !isMarqueePaused;
+
+    if (isMarqueePaused) {
+      track.classList.add('marquee-paused');
+      btn.setAttribute('aria-label', 'Reanudar');
+      icon.setAttribute('data-lucide', 'play');
+    } else {
+      track.classList.remove('marquee-paused');
+      btn.setAttribute('aria-label', 'Pausar');
+      icon.setAttribute('data-lucide', 'pause');
+    }
+    lucide.createIcons();
+  }
+
+  function init() {
+    loadPersistedState();
+    renderBrandPills();
+    renderCategoryPills();
+    syncPhoneAndRateDisplays();
+    updateFeaturedCard();
+    renderProducts();
+    updateCartUI();
+    updateAuthUI();
+    updateCloudStatusUI();
+    lucide.createIcons();
+  }
+
+  function updateFeaturedCard() {
+    if (products.length > 0) {
+      const topProd = products[0];
+      const img = document.getElementById('heroFeaturedImg');
+      const title = document.getElementById('heroFeaturedTitle');
+      const usd = document.getElementById('heroFeaturedUsd');
+      const bs = document.getElementById('heroFeaturedBs');
+      if (img) img.src = topProd.image || DEFAULT_FALLBACK_IMAGE;
+      if (title) title.textContent = topProd.title;
+      if (usd) usd.textContent = `$${topProd.price} USD`;
+      if (bs) bs.textContent = formatBs(topProd.price);
+    }
+  }
+
+  function syncPhoneAndRateDisplays() {
+    const formattedRate = usdToBsRate.toFixed(2) + " Bs/USD";
+    const rateInfo = document.getElementById('rateInfoBadge');
+    if (rateInfo) rateInfo.textContent = `1 USD = ${usdToBsRate.toFixed(2)} Bs.`;
+    
+    const adminBarRate = document.getElementById('adminBarRateDisplay');
+    if (adminBarRate) adminBarRate.textContent = formattedRate;
+
+    const featuredPrice = products.length > 0 ? products[0].price : 185;
+    const heroFeaturedBs = document.getElementById('heroFeaturedBs');
+    if (heroFeaturedBs) heroFeaturedBs.textContent = formatBs(featuredPrice);
+
+    const cartRateNote = document.getElementById('cartRateNote');
+    if (cartRateNote) cartRateNote.textContent = `Tasa aplicada: ${usdToBsRate.toFixed(2)} Bs/USD`;
+
+    const adminBarPhone = document.getElementById('adminBarPhoneDisplay');
+    if (adminBarPhone) adminBarPhone.textContent = formattedPhone;
+
+    document.querySelectorAll('.marqueePhoneDisplay').forEach(el => el.textContent = formattedPhone);
+    document.querySelectorAll('.heroPhoneDisplay').forEach(el => el.textContent = formattedPhone);
+    document.querySelectorAll('.footerPhoneText').forEach(el => el.textContent = formattedPhone);
+  }
+
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toastNotification');
+    const msgEl = document.getElementById('toastMsg');
+    msgEl.textContent = message;
+    toast.className = `fixed top-5 right-5 z-[100] transform transition-all duration-300 translate-y-0 opacity-100 flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border-2 font-black text-xs uppercase tracking-wider ${
+      type === 'success' ? 'bg-black text-lime-400 border-lime-400' : 'bg-red-600 text-white border-red-700'
+    }`;
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-[-120%]', 'opacity-0');
+    }, 3500);
+  }
+
+  // Admin Auth Logic
+  function handleAdminButtonClick() {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+    } else {
+      openConfigModal();
+    }
+  }
+
+  function openAdminLoginModal() {
+    document.getElementById('loginErrorMsg').classList.add('hidden');
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('adminLoginModal').classList.remove('hidden');
+    document.getElementById('loginUser').focus();
+    lucide.createIcons();
+  }
+
+  function closeAdminLoginModal() {
+    document.getElementById('adminLoginModal').classList.add('hidden');
+  }
+
+  function togglePasswordVisibility() {
+    const input = document.getElementById('loginPassword');
+    const text = document.getElementById('togglePasswordText');
+    if (input.type === 'password') {
+      input.type = 'text';
+      text.textContent = 'Ocultar';
+    } else {
+      input.type = 'password';
+      text.textContent = 'Mostrar';
+    }
+  }
+
+  function handleAdminLogin(event) {
+    event.preventDefault();
+    const user = document.getElementById('loginUser').value.trim().toLowerCase();
+    const pass = document.getElementById('loginPassword').value.trim();
+    const errorMsg = document.getElementById('loginErrorMsg');
+
+    if (user === 'admin' && pass === 'rodadmin2026') {
+      isAuthenticatedAdmin = true;
+      closeAdminLoginModal();
+      updateAuthUI();
+      renderProducts();
+      showToast("¡Modo Administrador activado con éxito!", 'success');
+    } else {
+      errorMsg.classList.remove('hidden');
+    }
+  }
+
+  function logoutAdmin() {
+    isAuthenticatedAdmin = false;
+    updateAuthUI();
+    renderProducts();
+    showToast("Sesión de administrador finalizada", 'success');
+  }
+
+  function updateAuthUI() {
+    const btn = document.getElementById('adminToggleBtn');
+    const text = document.getElementById('adminToggleText');
+    const lockIcon = document.getElementById('adminLockIcon');
+    const userBadge = document.getElementById('userProfileBadge');
+    const userText = document.getElementById('userProfileText');
+    const userAvatar = document.getElementById('userProfileAvatar');
+    const adminBar = document.getElementById('adminControlsBar');
+
+    const mobText = document.getElementById('adminToggleTextMobile');
+    const mobLogoutBtn = document.getElementById('mobileLogoutBtn');
+    const mobConfigBtn = document.getElementById('mobileConfigBtn');
+    const mobNewProdBtn = document.getElementById('mobileNewProdBtn');
+    const mobReorderBtn = document.getElementById('mobileReorderBtn');
+    const mobCloudBtn = document.getElementById('mobileCloudBtn');
+
+    if (isAuthenticatedAdmin) {
+      btn.className = "px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 border-2 bg-black text-lime-400 border-black shadow-md";
+      text.textContent = "Ajustes Admin";
+      lockIcon.setAttribute('data-lucide', 'settings');
+
+      userBadge.className = "flex items-center space-x-2 bg-lime-50 border border-lime-400 rounded-full p-1 pr-3 shadow-xs";
+      userAvatar.className = "w-7 h-7 rounded-full bg-black text-lime-400 flex items-center justify-center text-xs font-black ring-2 ring-lime-400";
+      userAvatar.innerHTML = '<span class="font-black text-[10px]">ADM</span>';
+      userText.className = "text-xs font-extrabold text-slate-900 max-w-[150px] truncate flex items-center gap-1.5";
+      userText.innerHTML = '<span class="w-2 h-2 rounded-full bg-lime-500 animate-pulse"></span>admin';
+
+      adminBar.classList.remove('hidden');
+
+      if (mobText) mobText.textContent = "Ajustes de Administración";
+      if (mobLogoutBtn) { mobLogoutBtn.classList.remove('hidden'); mobLogoutBtn.classList.add('flex'); }
+      if (mobConfigBtn) { mobConfigBtn.classList.remove('hidden'); mobConfigBtn.classList.add('flex'); }
+      if (mobNewProdBtn) { mobNewProdBtn.classList.remove('hidden'); mobNewProdBtn.classList.add('flex'); }
+      if (mobReorderBtn) { mobReorderBtn.classList.remove('hidden'); mobReorderBtn.classList.add('flex'); }
+      if (mobCloudBtn) { mobCloudBtn.classList.remove('hidden'); mobCloudBtn.classList.add('flex'); }
+    } else {
+      btn.className = "px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 border-2 bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-300 shadow-sm";
+      text.textContent = "Admin";
+      lockIcon.setAttribute('data-lucide', 'lock');
+
+      userBadge.className = "flex items-center space-x-2 bg-slate-100 border border-slate-300 rounded-full p-1 pr-3";
+      userAvatar.className = "w-7 h-7 rounded-full bg-slate-600 text-white flex items-center justify-center text-xs font-black";
+      userAvatar.innerHTML = '<i data-lucide="user" class="w-3.5 h-3.5"></i>';
+      userText.className = "text-xs font-bold text-slate-700 max-w-[150px] truncate";
+      userText.textContent = "Cliente";
+
+      adminBar.classList.add('hidden');
+
+      if (mobText) mobText.textContent = "Panel de Administrador";
+      if (mobLogoutBtn) { mobLogoutBtn.classList.add('hidden'); mobLogoutBtn.classList.remove('flex'); }
+      if (mobConfigBtn) { mobConfigBtn.classList.add('hidden'); mobConfigBtn.classList.remove('flex'); }
+      if (mobNewProdBtn) { mobNewProdBtn.classList.add('hidden'); mobNewProdBtn.classList.remove('flex'); }
+      if (mobReorderBtn) { mobReorderBtn.classList.add('hidden'); mobReorderBtn.classList.remove('flex'); }
+      if (mobCloudBtn) { mobCloudBtn.classList.add('hidden'); mobCloudBtn.classList.remove('flex'); }
+    }
+    lucide.createIcons();
+  }
+
+  // ==========================================
+  // REORDERING PRODUCTS LOGIC (ADMIN ONLY)
+  // ==========================================
+  function moveProduct(index, delta) {
+    const newIndex = index + delta;
+    if (newIndex < 0 || newIndex >= products.length) return;
+    const temp = products[index];
+    products[index] = products[newIndex];
+    products[newIndex] = temp;
+    saveProductsToStorage();
+    renderProducts();
+    updateFeaturedCard();
+    showToast(`Posición actualizada: ${temp.title} ahora está en #${newIndex + 1}`, 'success');
+  }
+
+  function makeProductHero(index) {
+    if (index === 0) {
+      showToast("Este calzado ya ocupa la posición #1 Hero de portada", 'success');
+      return;
+    }
+    const selected = products.splice(index, 1)[0];
+    products.unshift(selected);
+    saveProductsToStorage();
+    renderProducts();
+    updateFeaturedCard();
+    showToast(`⭐ ¡${selected.title} ahora es el #1 Drop Exclusivo!`, 'success');
+  }
+
+  function openReorderModal() {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+      return;
+    }
+    renderReorderList();
+    document.getElementById('reorderModal').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeReorderModal() {
+    document.getElementById('reorderModal').classList.add('hidden');
+  }
+
+  function renderReorderList() {
+    const list = document.getElementById('reorderItemsList');
+    const badge = document.getElementById('reorderCountBadge');
+    if (badge) badge.textContent = `${products.length} Pares en total`;
+
+    list.innerHTML = products.map((item, idx) => `
+      <div class="py-2.5 flex items-center justify-between gap-3 ${idx === 0 ? 'bg-lime-50/70 p-2.5 rounded-2xl border border-lime-300' : ''}">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-7 h-7 rounded-xl ${idx === 0 ? 'bg-black text-lime-400 font-black ring-2 ring-lime-400' : 'bg-slate-200 text-slate-800 font-extrabold'} flex items-center justify-center text-xs shrink-0">
+            #${idx + 1}
+          </span>
+          <img src="${item.image || DEFAULT_FALLBACK_IMAGE}" alt="${escapeHtml(item.title)}" class="w-12 h-12 rounded-xl object-cover bg-slate-100 shrink-0 border border-slate-200">
+          <div class="min-w-0">
+            <h4 class="text-xs font-black text-slate-900 uppercase truncate">${item.title}</h4>
+            <div class="flex items-center gap-2 text-[10px] text-slate-600 font-bold">
+              <span>${item.brand}</span>
+              <span>•</span>
+              <span class="text-lime-700 font-black">$${item.price} USD</span>
+              ${idx === 0 ? '<span class="bg-lime-400 text-black px-1.5 py-0.2 rounded text-[9px] font-black uppercase">⭐ Hero Portada</span>' : ''}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button 
+            type="button"
+            onclick="moveProductInReorderModal(${idx}, -1)" 
+            ${idx === 0 ? 'disabled class="opacity-30 p-2 text-slate-400 cursor-not-allowed"' : 'class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition border border-slate-300"'}
+            title="Subir posición"
+          >
+            <i data-lucide="chevron-up" class="w-4 h-4"></i>
+          </button>
+          <button 
+            type="button"
+            onclick="moveProductInReorderModal(${idx}, 1)" 
+            ${idx === products.length - 1 ? 'disabled class="opacity-30 p-2 text-slate-400 cursor-not-allowed"' : 'class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition border border-slate-300"'}
+            title="Bajar posición"
+          >
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+          </button>
+          <button 
+            type="button"
+            onclick="makeHeroInReorderModal(${idx})" 
+            class="px-2.5 py-2 text-[10px] font-black rounded-xl uppercase transition ${idx === 0 ? 'bg-lime-400 text-black shadow' : 'bg-zinc-900 text-white hover:bg-lime-400 hover:text-black'}"
+            title="Poner de primero en el Hero"
+          >
+            ⭐ #1
+          </button>
+        </div>
+      </div>
+    `).join('');
+    lucide.createIcons();
+  }
+
+  function moveProductInReorderModal(idx, delta) {
+    const newIdx = idx + delta;
+    if (newIdx < 0 || newIdx >= products.length) return;
+    const temp = products[idx];
+    products[idx] = products[newIdx];
+    products[newIdx] = temp;
+    renderReorderList();
+  }
+
+  function makeHeroInReorderModal(idx) {
+    if (idx === 0) return;
+    const item = products.splice(idx, 1)[0];
+    products.unshift(item);
+    renderReorderList();
+  }
+
+  function saveReorderChanges() {
+    saveProductsToStorage();
+    renderProducts();
+    updateFeaturedCard();
+    closeReorderModal();
+    showToast("¡Nuevo orden de catálogo aplicado y guardado con éxito!", 'success');
+  }
+
+  // ==========================================
+  // CLOUD STORAGE & API ENDPOINT LOGIC
+  // ==========================================
+  function openCloudConfigModal() {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+      return;
+    }
+    document.getElementById('cfgCloudEndpoint').value = cloudEndpoint;
+    document.getElementById('cfgCloudApiKey').value = cloudApiKey;
+    document.getElementById('cfgCloudMethod').value = cloudMethod;
+    updateCloudStatusUI();
+    document.getElementById('cloudConfigModal').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeCloudConfigModal() {
+    document.getElementById('cloudConfigModal').classList.add('hidden');
+  }
+
+  function updateCloudStatusUI() {
+    const dot = document.getElementById('cloudStatusDot');
+    const text = document.getElementById('cloudStatusText');
+    const subtext = document.getElementById('cloudStatusSubtext');
+    const card = document.getElementById('cloudStatusCard');
+    const badge = document.getElementById('adminBarCloudBadge');
+    const methodBadge = document.getElementById('cloudMethodBadge');
+
+    if (methodBadge) methodBadge.textContent = `METHOD: ${cloudMethod || 'PUT'}`;
+
+    if (isCloudConnected && cloudEndpoint) {
+      if (dot) dot.className = "w-3 h-3 rounded-full bg-emerald-400 animate-ping";
+      if (text) { text.textContent = "Conectado a la nube en tiempo real"; text.className = "text-emerald-400 font-black"; }
+      if (subtext) subtext.textContent = `Sincronizando automáticamente con: ${cloudEndpoint}`;
+      if (card) card.style.borderColor = "#10b981";
+      if (badge) {
+        badge.textContent = "Conectado";
+        badge.className = "ml-1 px-1.5 py-0.2 rounded text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-600 font-black";
+      }
+    } else {
+      if (dot) dot.className = "w-3 h-3 rounded-full bg-amber-400 animate-ping";
+      if (text) { text.textContent = "Guardando localmente (Listo para sincronizar)"; text.className = "text-amber-300 font-black"; }
+      if (subtext) subtext.textContent = "Los cambios se guardan en el navegador. Conecta un Endpoint API para respaldo centralizado.";
+      if (card) card.style.borderColor = "#27272a";
+      if (badge) {
+        badge.textContent = "Local";
+        badge.className = "ml-1 px-1.5 py-0.2 rounded text-[9px] bg-zinc-800 text-amber-300 border border-zinc-700 font-bold";
+      }
+    }
+  }
+
+  function handleCloudConfigSubmit(e) {
+    e.preventDefault();
+    const endpoint = document.getElementById('cfgCloudEndpoint').value.trim();
+    const apiKey = document.getElementById('cfgCloudApiKey').value.trim();
+    const method = document.getElementById('cfgCloudMethod').value;
+
+    if (!endpoint || !endpoint.startsWith('http')) {
+      showToast("Ingresa una URL de Endpoint válida (con http o https)", 'error');
+      return;
+    }
+
+    cloudEndpoint = endpoint;
+    cloudApiKey = apiKey;
+    cloudMethod = method;
+
+    localStorage.setItem(STORAGE_KEY_CLOUD_ENDPOINT, cloudEndpoint);
+    localStorage.setItem(STORAGE_KEY_CLOUD_KEY, cloudApiKey);
+    localStorage.setItem(STORAGE_KEY_CLOUD_METHOD, cloudMethod);
+
+    showToast("Probando conexión con el endpoint...", 'success');
+    triggerManualCloudSync('push', true);
+  }
+
+  async function triggerManualCloudSync(direction, isTest = false) {
+    const endpoint = document.getElementById('cfgCloudEndpoint') ? document.getElementById('cfgCloudEndpoint').value.trim() : cloudEndpoint;
+    const apiKey = document.getElementById('cfgCloudApiKey') ? document.getElementById('cfgCloudApiKey').value.trim() : cloudApiKey;
+    const method = document.getElementById('cfgCloudMethod') ? document.getElementById('cfgCloudMethod').value : cloudMethod;
+
+    if (!endpoint || !endpoint.startsWith('http')) {
+      showToast("Debes configurar primero un Endpoint URL válido", 'error');
+      return;
+    }
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (apiKey) {
+      if (apiKey.startsWith('$2a$') || apiKey.startsWith('$2b$')) {
+        headers['X-Master-Key'] = apiKey;
+      } else {
+        headers['Authorization'] = `Bearer ${apiKey}`;
+      }
+    }
+
+    try {
+      if (direction === 'push') {
+        const payload = {
+          updatedAt: new Date().toISOString(),
+          rateBcv: usdToBsRate,
+          whatsapp: whatsappNumber,
+          products: products
+        };
+
+        const res = await fetch(endpoint, {
+          method: method || 'PUT',
+          headers: headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          isCloudConnected = true;
+          updateCloudStatusUI();
+          showToast(isTest ? "¡Conexión validada y catálogo guardado en la nube!" : "Catálogo sincronizado exitosamente", 'success');
+        } else {
+          showToast(`Servidor respondió código HTTP ${res.status}. Verifica tus permisos.`, 'error');
+        }
+      } else if (direction === 'pull') {
+        const res = await fetch(endpoint, { method: 'GET', headers: headers });
+        if (res.ok) {
+          const data = await res.json();
+          let remoteProducts = null;
+          if (Array.isArray(data)) remoteProducts = data;
+          else if (data.record && Array.isArray(data.record.products)) remoteProducts = data.record.products;
+          else if (Array.isArray(data.products)) remoteProducts = data.products;
+
+          if (remoteProducts && remoteProducts.length > 0) {
+            products = remoteProducts;
+            if (data.rateBcv) usdToBsRate = parseFloat(data.rateBcv);
+            if (data.whatsapp) whatsappNumber = data.whatsapp;
+            saveProductsToStorage();
+            refreshBrandList();
+            renderBrandPills();
+            renderProducts();
+            updateFeaturedCard();
+            syncPhoneAndRateDisplays();
+            isCloudConnected = true;
+            updateCloudStatusUI();
+            showToast(`¡Descargados ${remoteProducts.length} pares desde la nube!`, 'success');
+          } else {
+            showToast("No se encontraron productos estructurados en la respuesta remota", 'error');
+          }
+        } else {
+          showToast(`Error al descargar: Servidor retornó HTTP ${res.status}`, 'error');
+        }
+      }
+    } catch (err) {
+      console.warn("Fallo de conexión API:", err);
+      showToast("Error de conexión (posible restricción CORS en la API)", 'error');
+    }
+  }
+
+  function syncToCloudSilently() {
+    if (!cloudEndpoint || !isCloudConnected) return;
+    const headers = { 'Content-Type': 'application/json' };
+    if (cloudApiKey) {
+      if (cloudApiKey.startsWith('$2a$') || cloudApiKey.startsWith('$2b$')) headers['X-Master-Key'] = cloudApiKey;
+      else headers['Authorization'] = `Bearer ${cloudApiKey}`;
+    }
+    const payload = {
+      updatedAt: new Date().toISOString(),
+      rateBcv: usdToBsRate,
+      whatsapp: whatsappNumber,
+      products: products
+    };
+    fetch(cloudEndpoint, { method: cloudMethod || 'PUT', headers: headers, body: JSON.stringify(payload) })
+      .catch(err => console.log("Silent cloud sync notice:", err));
+  }
+
+  function disconnectCloud() {
+    if (confirm("¿Desconectar la nube? Se mantendrá el almacenamiento local en tu navegador.")) {
+      cloudEndpoint = "";
+      cloudApiKey = "";
+      isCloudConnected = false;
+      localStorage.removeItem(STORAGE_KEY_CLOUD_ENDPOINT);
+      localStorage.removeItem(STORAGE_KEY_CLOUD_KEY);
+      localStorage.removeItem(STORAGE_KEY_CLOUD_METHOD);
+      document.getElementById('cfgCloudEndpoint').value = "";
+      document.getElementById('cfgCloudApiKey').value = "";
+      updateCloudStatusUI();
+      showToast("Nube desconectada. Modo Local activo.", 'success');
+    }
+  }
+
+  // ==========================================
+  // RENDER PRODUCTS
+  // ==========================================
+  function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    const empty = document.getElementById('emptyState');
+
+    const filtered = products.filter(p => {
+      const matchCategory = activeCategory === "Todos" || p.category === activeCategory;
+      const matchBrand = activeBrand === "Todas" || p.brand === activeBrand;
+      const matchSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (p.brand && p.brand.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                          (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()));
+      return matchCategory && matchBrand && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = "";
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    empty.classList.add('hidden');
+    grid.innerHTML = filtered.map((prod) => {
+      const originalIndex = products.findIndex(p => p.id === prod.id);
+      const isFirst = originalIndex === 0;
+      const isLast = originalIndex === products.length - 1;
+
+      const badgeColorClass = prod.badge === "HOT" 
+        ? "bg-red-600 text-white border-red-700 animate-pulse"
+        : prod.badge === "TOP SELLER"
+        ? "bg-amber-400 text-black border-amber-500 font-black"
+        : "bg-black text-lime-400 border-zinc-800 font-black";
+
+      const sizesHtml = Array.isArray(prod.sizes) 
+        ? prod.sizes.slice(0, 5).map(s => `<span class="text-xs font-extrabold border border-slate-300 rounded-lg px-2 py-1 bg-slate-50 text-slate-800">${s}</span>`).join('') +
+          (prod.sizes.length > 5 ? `<span class="text-[10px] font-bold text-slate-600 self-center">+${prod.sizes.length - 5} más</span>` : '')
+        : '';
+
+      const safeTitle = escapeHtml(prod.title);
+      const bsPrice = formatBs(prod.price);
+      const prodImg = prod.image || DEFAULT_FALLBACK_IMAGE;
+
+      return `
+        <div class="group bg-white rounded-3xl border-2 ${isAuthenticatedAdmin ? 'border-lime-500 ring-2 ring-lime-400/40 shadow-md' : 'border-slate-200'} shadow-sm hover:shadow-2xl hover:border-black transition-all duration-300 flex flex-col overflow-hidden relative">
+          
+          ${isAuthenticatedAdmin ? `
+            <!-- ADMIN ONLY: Top Order Bar & Quick Reorder Controls -->
+            <div class="bg-black text-white px-3 py-2 border-b-2 border-lime-400 flex items-center justify-between gap-2 z-20">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-lg ${isFirst ? 'bg-lime-400 text-black font-black' : 'bg-zinc-800 text-lime-400 font-extrabold'} text-[11px] uppercase tracking-wider flex items-center gap-1">
+                  ${isFirst ? '⭐ #1 HERO' : `#${originalIndex + 1}`}
+                </span>
+                <span class="text-[10px] text-zinc-400 font-bold hidden sm:inline">Orden</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button 
+                  onclick="moveProduct(${originalIndex}, -1)" 
+                  ${isFirst ? 'disabled class="opacity-30 p-1 text-zinc-500 cursor-not-allowed"' : 'class="p-1 px-2 bg-zinc-800 hover:bg-lime-400 hover:text-black rounded-lg text-white font-bold text-[10px] flex items-center gap-1 transition"'}
+                  title="Mover una posición antes"
+                >
+                  <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                  <span class="hidden md:inline">Antes</span>
+                </button>
+                <button 
+                  onclick="moveProduct(${originalIndex}, 1)" 
+                  ${isLast ? 'disabled class="opacity-30 p-1 text-zinc-500 cursor-not-allowed"' : 'class="p-1 px-2 bg-zinc-800 hover:bg-lime-400 hover:text-black rounded-lg text-white font-bold text-[10px] flex items-center gap-1 transition"'}
+                  title="Mover una posición después"
+                >
+                  <span class="hidden md:inline">Después</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </button>
+                <button 
+                  onclick="makeProductHero(${originalIndex})" 
+                  class="p-1 px-2 ${isFirst ? 'bg-lime-400 text-black font-black' : 'bg-zinc-900 hover:bg-lime-400 hover:text-black text-amber-300 font-bold'} rounded-lg text-[10px] flex items-center gap-1 transition border border-zinc-700"
+                  title="Poner de primero en el Hero"
+                >
+                  <span>⭐ #1</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Admin Edit/Delete Floating Overlay -->
+            <div class="absolute top-12 right-3 z-30 flex items-center gap-1 bg-black/95 backdrop-blur-md p-1 rounded-2xl border border-lime-400 shadow-xl">
+              <button 
+                onclick="openProductModal('${prod.id}')" 
+                class="p-1.5 px-2 text-lime-400 hover:bg-zinc-800 rounded-xl transition flex items-center gap-1 text-[11px] font-extrabold" 
+                title="Modificar precio, imagen o datos"
+              >
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span>Editar</span>
+              </button>
+              <span class="text-zinc-600">|</span>
+              <button 
+                onclick="deleteProduct('${prod.id}')" 
+                class="p-1.5 text-red-400 hover:bg-zinc-800 rounded-xl transition" 
+                title="Eliminar calzado"
+              >
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          ` : ''}
+
+          <!-- Badges Overlay -->
+          <div class="absolute ${isAuthenticatedAdmin ? 'top-14' : 'top-3'} left-3 z-10 flex flex-col gap-1.5 items-start">
+            ${prod.badge ? `<span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border shadow-sm ${badgeColorClass}">${prod.badge}</span>` : ''}
+            <span class="bg-slate-900/95 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded tracking-widest">
+              ${prod.brand || "Imported"}
+            </span>
+          </div>
+
+          <!-- Image Container -->
+          <button 
+            type="button"
+            class="w-full h-72 bg-slate-100 overflow-hidden relative cursor-pointer flex items-center justify-center text-left"
+            onclick="openProductDetail(${originalIndex})"
+          >
+            <img
+              src="${prodImg}"
+              alt="${safeTitle}"
+              class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+              onerror="this.src='${DEFAULT_FALLBACK_IMAGE}'"
+            />
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-[10px] font-black px-3 py-1.5 rounded-xl flex items-center gap-1 uppercase tracking-widest">
+              <span>Ver Detalle</span>
+              <i data-lucide="chevron-right" class="w-3 h-3 text-lime-400"></i>
+            </div>
+          </button>
+
+          <!-- Details -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-[10px] font-black text-slate-700 uppercase tracking-widest mb-1">
+                ${prod.category}
+              </div>
+              <h3 class="font-black text-slate-900 text-lg leading-tight uppercase italic tracking-tight cursor-pointer hover:text-lime-700" onclick="openProductDetail(${originalIndex})">
+                ${prod.title}
+              </h3>
+              <p class="text-xs text-slate-600 font-medium line-clamp-2 mt-2 leading-relaxed">
+                ${prod.description || "Zapatilla original importada desde Estados Unidos."}
+              </p>
+            </div>
+
+            <!-- Sizes -->
+            <div>
+              <span class="text-[10px] font-black text-slate-700 uppercase tracking-widest block mb-1.5">
+                Tallas Disponibles (US):
+              </span>
+              <div class="flex flex-wrap gap-1.5">
+                ${sizesHtml}
+              </div>
+            </div>
+
+            <!-- Price & Buy Actions -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Precio Final</span>
+                <div class="flex flex-col">
+                  <span class="text-xl font-black text-slate-900 tracking-tight leading-tight">
+                    $${prod.price} <span class="text-xs text-slate-700 font-bold">USD</span>
+                  </span>
+                  <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200 inline-block w-max mt-0.5">
+                    ${bsPrice}
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex space-x-2">
+                <button
+                  onclick="addToCart('${prod.id}')"
+                  class="p-3 bg-slate-100 hover:bg-black hover:text-lime-400 text-slate-900 rounded-2xl transition border border-slate-300"
+                  aria-label="Agregar al carrito"
+                  title="Agregar al Carrito"
+                >
+                  <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                </button>
+
+                <button
+                  onclick="buySingleWhatsApp('${prod.id}')"
+                  class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs px-3.5 py-3 rounded-2xl shadow-md transition uppercase tracking-wider active:scale-95"
+                  aria-label="Pedir por WhatsApp"
+                >
+                  <i data-lucide="phone" class="w-3.5 h-3.5 fill-current"></i>
+                  <span>Pedir</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    lucide.createIcons();
+  }
+
+  // Admin CRUD Products
+  function openProductModal(prodId = null) {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+      return;
+    }
+    const modal = document.getElementById('productFormModal');
+    const form = document.getElementById('productForm');
+    const title = document.getElementById('formModalTitle');
+
+    form.reset();
+    document.getElementById('formProductId').value = "";
+
+    if (prodId) {
+      const p = products.find(item => item.id === prodId);
+      if (p) {
+        title.textContent = `Editar: ${p.title}`;
+        document.getElementById('formProductId').value = p.id;
+        document.getElementById('formTitle').value = p.title;
+        document.getElementById('formBrand').value = p.brand;
+        document.getElementById('formCategory').value = p.category;
+        document.getElementById('formPrice').value = p.price;
+        document.getElementById('formBadge').value = p.badge || "NEW";
+        document.getElementById('formSizes').value = Array.isArray(p.sizes) ? p.sizes.join(', ') : p.sizes;
+        document.getElementById('formImage').value = p.image || "";
+        document.getElementById('formDescription').value = p.description || "";
+      }
+    } else {
+      title.textContent = "Agregar Nuevo Calzado";
+      document.getElementById('formBadge').value = "NEW";
+      document.getElementById('formSizes').value = "7.5, 8, 8.5, 9, 9.5, 10";
+    }
+
+    modal.classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeProductModal() {
+    document.getElementById('productFormModal').classList.add('hidden');
+  }
+
+  function handleProductFormSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById('formProductId').value;
+    const title = document.getElementById('formTitle').value.trim();
+    const brand = document.getElementById('formBrand').value;
+    const category = document.getElementById('formCategory').value;
+    const price = parseFloat(document.getElementById('formPrice').value);
+    const badge = document.getElementById('formBadge').value;
+    const sizesStr = document.getElementById('formSizes').value.trim();
+    let image = document.getElementById('formImage').value.trim() || DEFAULT_FALLBACK_IMAGE;
+    const description = document.getElementById('formDescription').value.trim();
+
+    const sizes = sizesStr.split(',').map(s => s.trim()).filter(Boolean);
+
+    if (id) {
+      const idx = products.findIndex(p => p.id === id);
+      if (idx !== -1) {
+        products[idx] = {
+          ...products[idx],
+          title,
+          brand,
+          category,
+          price,
+          badge,
+          sizes: sizes.length ? sizes : ["8", "9", "10"],
+          image,
+          description: description || "Zapatilla original importada desde Estados Unidos."
+        };
+        saveProductsToStorage();
+        refreshBrandList();
+        renderBrandPills();
+        renderProducts();
+        updateFeaturedCard();
+        showToast("¡Calzado actualizado y guardado!", 'success');
+      }
+    } else {
+      const newProd = {
+        id: `prod-${Date.now()}`,
+        title,
+        brand,
+        category,
+        price,
+        badge,
+        sizes: sizes.length ? sizes : ["8", "9", "10"],
+        image,
+        description: description || "Zapatilla original importada desde Estados Unidos."
+      };
+      products.unshift(newProd);
+      saveProductsToStorage();
+      refreshBrandList();
+      renderBrandPills();
+      renderProducts();
+      updateFeaturedCard();
+      showToast("¡Nuevo calzado publicado en el catálogo!", 'success');
+    }
+
+    closeProductModal();
+  }
+
+  function deleteProduct(prodId) {
+    if (!isAuthenticatedAdmin) return;
+    const p = products.find(item => item.id === prodId);
+    if (!p) return;
+
+    if (confirm(`¿Estás seguro de eliminar "${p.title}" del inventario?`)) {
+      products = products.filter(item => item.id !== prodId);
+      cart = cart.filter(item => item.id !== prodId);
+      saveProductsToStorage();
+      refreshBrandList();
+      renderBrandPills();
+      renderProducts();
+      updateFeaturedCard();
+      updateCartUI();
+      showToast("Calzado eliminado", 'success');
+    }
+  }
+
+  function openConfigModal() {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+      return;
+    }
+    document.getElementById('cfgRateInput').value = usdToBsRate;
+    document.getElementById('cfgPhoneInput').value = whatsappNumber;
+    document.getElementById('adminConfigModal').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeConfigModal() {
+    document.getElementById('adminConfigModal').classList.add('hidden');
+  }
+
+  function handleConfigSubmit(e) {
+    e.preventDefault();
+    const newRate = parseFloat(document.getElementById('cfgRateInput').value);
+    const rawPhone = document.getElementById('cfgPhoneInput').value.replace(/[^0-9]/g, '');
+
+    if (newRate && newRate > 0) {
+      usdToBsRate = newRate;
+      localStorage.setItem(STORAGE_KEY_RATE, String(usdToBsRate));
+    }
+    if (rawPhone && rawPhone.length >= 8) {
+      whatsappNumber = rawPhone;
+      formattedPhone = formatPhoneDisplay(rawPhone);
+      localStorage.setItem(STORAGE_KEY_WHATSAPP, whatsappNumber);
+    }
+
+    closeConfigModal();
+    syncPhoneAndRateDisplays();
+    renderProducts();
+    updateFeaturedCard();
+    updateCartUI();
+    showToast(`Configuración guardada. Tasa: ${usdToBsRate.toFixed(2)} Bs/USD`, 'success');
+  }
+
+  function confirmResetFactory() {
+    if (!isAuthenticatedAdmin) {
+      openAdminLoginModal();
+      return;
+    }
+    if (confirm("¿Restablecer el inventario de fábrica? Se recargarán los 6 pares iniciales.")) {
+      products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
+      saveProductsToStorage();
+      refreshBrandList();
+      renderBrandPills();
+      renderProducts();
+      updateFeaturedCard();
+      updateCartUI();
+      closeConfigModal();
+      showToast("Inventario restablecido", 'success');
+    }
+  }
+
+  function renderBrandPills() {
+    const container = document.getElementById('brandsContainer');
+    container.innerHTML = brands.map(brand => `
+      <button
+        onclick="setBrand('${brand}')"
+        class="px-4 py-1.5 rounded-xl text-xs font-extrabold uppercase transition whitespace-nowrap border ${
+          activeBrand === brand
+            ? "bg-slate-900 text-lime-400 border-slate-900 shadow-md"
+            : "bg-white text-slate-800 hover:bg-slate-100 border-slate-300"
+        }"
+      >
+        ${brand}
+      </button>
+    `).join('');
+  }
+
+  function renderCategoryPills() {
+    const container = document.getElementById('categoriesContainer');
+    container.innerHTML = categories.map(cat => `
+      <button
+        onclick="setCategory('${cat}')"
+        class="px-4 py-2 rounded-2xl text-xs font-black uppercase whitespace-nowrap transition ${
+          activeCategory === cat
+            ? "bg-lime-400 text-black shadow-md border-2 border-black"
+            : "bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-300"
+        }"
+      >
+        ${cat}
+      </button>
+    `).join('');
+  }
+
+  function setBrand(brand) {
+    activeBrand = brand;
+    renderBrandPills();
+    renderProducts();
+  }
+
+  function setCategory(cat) {
+    activeCategory = cat;
+    renderCategoryPills();
+    renderProducts();
+  }
+
+  function handleSearch(val) {
+    searchTerm = val;
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) {
+      if (val) clearBtn.classList.remove('hidden');
+      else clearBtn.classList.add('hidden');
+    }
+    renderProducts();
+  }
+
+  function clearSearch() {
+    searchTerm = "";
+    const s1 = document.getElementById('search-input');
+    if (s1) s1.value = "";
+    const s2 = document.getElementById('mobile-search-input');
+    if (s2) s2.value = "";
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) clearBtn.classList.add('hidden');
+    renderProducts();
+  }
+
+  function resetFilters() {
+    activeCategory = "Todos";
+    activeBrand = "Todas";
+    clearSearch();
+    renderBrandPills();
+    renderCategoryPills();
+    renderProducts();
+  }
+
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  }
+
+  function escapeHtml(str) {
+    return (str || '').replace(/"/g, '&quot;');
+  }
+
+  // Modal Product Details
+  function openProductDetail(index) {
+    const p = products[index];
+    if (!p) return;
+    selectedProductModal = p;
+    selectedSizeModal = (p.sizes && p.sizes.length > 0) ? p.sizes[0] : "9";
+
+    document.getElementById('modalDetailImage').src = p.image || DEFAULT_FALLBACK_IMAGE;
+    document.getElementById('modalDetailTitle').textContent = p.title;
+    document.getElementById('modalDetailTag').textContent = `${p.brand} • ${p.category}`;
+    document.getElementById('modalDetailDesc').textContent = p.description || "Zapatilla 100% original importada de tiendas de Estados Unidos.";
+    document.getElementById('modalDetailPrice').textContent = `$${p.price} USD`;
+    document.getElementById('modalDetailPriceBs').textContent = formatBs(p.price);
+
+    const sizesContainer = document.getElementById('modalDetailSizes');
+    sizesContainer.innerHTML = (p.sizes || []).map(sz => `
+      <button
+        onclick="selectModalSize('${sz}')"
+        id="btnSize-${sz}"
+        class="size-pill px-3.5 py-1.5 rounded-xl text-xs font-black uppercase transition border ${
+          selectedSizeModal === sz 
+            ? 'bg-black text-lime-400 border-black shadow' 
+            : 'bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-300'
+        }"
+      >
+        US ${sz}
+      </button>
+    `).join('');
+
+    document.getElementById('productDetailModal').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeProductDetail() {
+    document.getElementById('productDetailModal').classList.add('hidden');
+  }
+
+  function selectModalSize(sz) {
+    selectedSizeModal = sz;
+    document.querySelectorAll('.size-pill').forEach(btn => {
+      btn.className = "size-pill px-3.5 py-1.5 rounded-xl text-xs font-black uppercase transition border bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-300";
+    });
+    const selectedBtn = document.getElementById(`btnSize-${sz}`);
+    if (selectedBtn) {
+      selectedBtn.className = "size-pill px-3.5 py-1.5 rounded-xl text-xs font-black uppercase transition border bg-black text-lime-400 border-black shadow";
+    }
+  }
+
+  function addCurrentModalToCart() {
+    if (!selectedProductModal) return;
+    addToCart(selectedProductModal.id, selectedSizeModal);
+    closeProductDetail();
+  }
+
+  function buyCurrentModalWhatsApp() {
+    if (!selectedProductModal) return;
+    const p = selectedProductModal;
+    const sz = selectedSizeModal || "Estándar";
+    const bs = formatBs(p.price);
+    const msg = `¡Hola *rodfashion.ve*! 👋 Quisiera ordenar este calzado:\n\n👟 *${p.title}*\n🏷️ *Marca:* ${p.brand}\n📏 *Talla:* US ${sz}\n💵 *Precio:* $${p.price} USD (~ ${bs})\n\n¿Tienen disponibilidad para envío a Venezuela?`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function buySingleWhatsApp(prodId) {
+    const p = products.find(item => item.id === prodId);
+    if (!p) return;
+    const sz = (p.sizes && p.sizes.length > 0) ? p.sizes[0] : "9";
+    const bs = formatBs(p.price);
+    const msg = `¡Hola *rodfashion.ve*! 👋 Deseo ordenar:\n\n👟 *${p.title}*\n🏷️ *Marca:* ${p.brand}\n📏 *Talla:* US ${sz}\n💵 *Precio:* $${p.price} USD (~ ${bs})\n\n¿Cuáles son las opciones de entrega?`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function consultWhatsAppFooter() {
+    const msg = `¡Hola *rodfashion.ve*! 👋 Deseo recibir información sobre el catálogo y envíos de calzado desde USA a Venezuela.`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // Cart Functions
+  function addToCart(prodId, chosenSize = null) {
+    const p = products.find(item => item.id === prodId);
+    if (!p) return;
+    const size = chosenSize || (p.sizes && p.sizes.length > 0 ? p.sizes[0] : "US 9");
+    const existingIndex = cart.findIndex(item => item.id === prodId && item.selectedSize === size);
+
+    if (existingIndex > -1) {
+      cart[existingIndex].quantity += 1;
+    } else {
+      cart.push({ ...p, selectedSize: size, quantity: 1 });
+    }
+
+    updateCartUI();
+    showToast(`Agregado: ${p.title} (US ${size})`, 'success');
+  }
+
+  function updateCartUI() {
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badgeDesktop = document.getElementById('cartCountBadge');
+    const badgeMobile = document.getElementById('cartCountBadgeMobile');
+
+    if (totalCount > 0) {
+      if (badgeDesktop) { badgeDesktop.textContent = totalCount; badgeDesktop.classList.remove('hidden'); }
+      if (badgeMobile) { badgeMobile.textContent = totalCount; badgeMobile.classList.remove('hidden'); }
+    } else {
+      if (badgeDesktop) badgeDesktop.classList.add('hidden');
+      if (badgeMobile) badgeMobile.classList.add('hidden');
+    }
+
+    const cartList = document.getElementById('cartList');
+    const subtotalEl = document.getElementById('cartSubtotal');
+    const subtotalBsEl = document.getElementById('cartSubtotalBs');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    if (cart.length === 0) {
+      cartList.innerHTML = `<div class="py-12 text-center text-slate-600 font-extrabold text-xs uppercase tracking-wider">El carrito está vacío</div>`;
+      subtotalEl.textContent = `$0 USD`;
+      subtotalBsEl.textContent = `0,00 Bs.`;
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    checkoutBtn.disabled = false;
+    let totalUsd = 0;
+
+    cartList.innerHTML = cart.map((item, idx) => {
+      const itemTotal = item.price * item.quantity;
+      totalUsd += itemTotal;
+      return `
+        <div class="py-3.5 flex items-center justify-between gap-3">
+          <img src="${item.image || DEFAULT_FALLBACK_IMAGE}" alt="${escapeHtml(item.title)}" class="w-14 h-14 rounded-xl object-cover bg-slate-100 border border-slate-200 shrink-0">
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-black text-slate-900 uppercase truncate">${item.title}</h4>
+            <div class="text-[10px] text-slate-600 font-bold">Talla: <span class="text-black font-extrabold">US ${item.selectedSize}</span></div>
+            <div class="text-xs font-black text-slate-900 mt-0.5">$${item.price} USD</div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="changeCartQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold flex items-center justify-center text-xs">-</button>
+            <span class="text-xs font-black w-4 text-center">${item.quantity}</span>
+            <button onclick="changeCartQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold flex items-center justify-center text-xs">+</button>
+            <button onclick="removeCartItem(${idx})" class="p-1 text-red-500 hover:text-red-700 ml-1">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    subtotalEl.textContent = `$${totalUsd.toFixed(2)} USD`;
+    subtotalBsEl.textContent = formatBs(totalUsd);
+    lucide.createIcons();
+  }
+
+  function changeCartQty(idx, delta) {
+    if (!cart[idx]) return;
+    cart[idx].quantity += delta;
+    if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+    updateCartUI();
+  }
+
+  function removeCartItem(idx) {
+    if (!cart[idx]) return;
+    cart.splice(idx, 1);
+    updateCartUI();
+  }
+
+  function openCart() {
+    document.getElementById('cartDrawer').classList.remove('hidden');
+    updateCartUI();
+  }
+
+  function closeCart() {
+    document.getElementById('cartDrawer').classList.add('hidden');
+  }
+
+  function handleWhatsAppCheckout() {
+    if (cart.length === 0) return;
+    let totalUsd = 0;
+    let itemsText = cart.map(item => {
+      const itemTotal = item.price * item.quantity;
+      totalUsd += itemTotal;
+      return `• *${item.title}* (Talla US ${item.selectedSize}) x${item.quantity} = $${itemTotal} USD`;
+    }).join('\n');
+
+    const totalBs = formatBs(totalUsd);
+    const msg = `¡Hola *rodfashion.ve*! 👋 Deseo confirmar mi pedido del catálogo:\n\n${itemsText}\n\n💵 *Total USD:* $${totalUsd.toFixed(2)} USD\n🇻🇪 *Total Bolívares:* ${totalBs} (Tasa: ${usdToBsRate.toFixed(2)} Bs/USD)\n\nPor favor indíquenme los métodos de pago disponibles y datos para el envío a Venezuela.`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // Run on start
+  window.addEventListener('DOMContentLoaded', init);
+  init();
+</script>
+
+
+
+</body></html>
