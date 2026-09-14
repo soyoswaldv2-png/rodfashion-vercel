@@ -2574,15 +2574,67 @@
     renderProducts();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadStoreFromCloud();
     renderGlobalInfo();
     renderFilterPills();
     renderSpotlightHero();
     renderProducts();
     renderStreetwear();
     updateCartBadge();
+    startAutoSave();
   });
 </script>
+
+<!-- BEGIN: CloudSync (Supabase) -->
+<script data-purpose="cloud-sync">
+  // Carga la configuración, productos y streetwear guardados en la nube.
+  // Si aún no hay nada guardado, se queda con los valores de ejemplo del código.
+  async function loadStoreFromCloud() {
+    try {
+      const res = await fetch('/api/store');
+      if (!res.ok) return;
+      const cloud = await res.json();
+      if (cloud && Object.keys(cloud).length > 0) {
+        if (cloud.config) Object.assign(AppState.config, cloud.config);
+        if (Array.isArray(cloud.products)) AppState.products = cloud.products;
+        if (Array.isArray(cloud.streetwear)) AppState.streetwear = cloud.streetwear;
+        if (typeof cloud.spotlightId !== 'undefined') AppState.spotlightId = cloud.spotlightId;
+      }
+    } catch (err) {
+      console.error('No se pudo cargar la configuración desde la nube:', err);
+    }
+  }
+
+  // Guarda el estado actual (config, productos, streetwear) en la nube.
+  let _lastSavedSnapshot = '';
+  async function saveStoreToCloud() {
+    const snapshot = JSON.stringify({
+      config: AppState.config,
+      products: AppState.products,
+      streetwear: AppState.streetwear,
+      spotlightId: AppState.spotlightId
+    });
+    if (snapshot === _lastSavedSnapshot) return; // nada cambió, no llamar a la API
+    try {
+      const res = await fetch('/api/store', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: snapshot
+      });
+      if (res.ok) _lastSavedSnapshot = snapshot;
+    } catch (err) {
+      console.error('No se pudo guardar en la nube:', err);
+    }
+  }
+
+  // Revisa cada 3 segundos si algo cambió (producto añadido, precio editado, etc.)
+  // y, si es así, lo guarda automáticamente. Así no hay que tocar cada función del admin.
+  function startAutoSave() {
+    setInterval(saveStoreToCloud, 3000);
+  }
+</script>
+<!-- END: CloudSync (Supabase) -->
 <!-- END: JavaScript Application State & Engine -->
 
 
