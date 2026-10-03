@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "rewrites": [
+  "crons": [
     {
-      "source": "/api/catalog",
-      "destination": "/api/catalog.js"
+      "path": "/api/store",
+      "schedule": "0 9 * * *"
     }
   ]
 }
