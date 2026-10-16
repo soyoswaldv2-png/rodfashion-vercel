@@ -112,7 +112,7 @@
 <button class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold flex items-center gap-1 border border-gray-700" onclick="openAdminSettingsModal('tab-order-manager')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders w-4 h-4 text-dynamic-accent"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg> Reordenar Productos</button><button class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-bold flex items-center gap-1 border border-gray-700" onclick="openAdminSettingsModal('tab-socials')">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2 w-4 h-4 text-dynamic-accent"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg> Redes Sociales
 </button><button class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium flex items-center gap-1 border border-gray-700" onclick="openAdminSettingsModal('tab-rate')">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders" aria-hidden="true" class="lucide lucide-sliders w-4 h-4 text-dynamic-accent"><path d="M10 8h4"></path><path d="M12 21v-9"></path><path d="M12 8V3"></path><path d="M17 16h4"></path><path d="M19 12V3"></path><path d="M19 21v-5"></path><path d="M3 14h4"></path><path d="M5 10V3"></path><path d="M5 21v-7"></path></svg> Ajustes / Tasa
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders" aria-hidden="true" class="lucide lucide-sliders w-4 h-4 text-dynamic-accent"><path d="M10 8h4"></path><path d="M12 21v-9"></path><path d="M12 8V3"></path><path d="M17 16h4"></path><path d="M19 12V3"></path><path d="M19 21v-5"></path><path d="M3 14h4"></path><path d="M5 10V3"></path><path d="M5 21v-7"></path></svg> Ajustes
       </button>
 <button class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium flex items-center gap-1 border border-gray-700" onclick="exportConfigBackup()" title="Descarga un respaldo de toda tu configuración actual">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-download w-4 h-4 text-dynamic-accent"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Exportar Backup
@@ -210,6 +210,9 @@
 <span id="heroPhoneBadge" class="">584244126982</span>
 </div>
 </div>
+<!-- Hero Social Links -->
+<div id="heroSocialsLinks" class="flex items-center gap-3 pt-1 text-gray-300"></div>
+</div>
 </div>
 <!-- Right Hero Spotlight Product Card -->
 <div class="lg:col-span-5">
@@ -227,7 +230,6 @@
 <h3 class="text-lg sm:text-xl font-black text-white italic" id="spotlightTitle">AIR JORDAN 1 RETRO HIGH OG 'CHICAGO'</h3>
 <div class="mt-1 flex items-baseline gap-2">
 <span class="text-2xl font-black text-dynamic-accent" id="spotlightPriceUsd">$185 USD</span>
-<span class="text-xs text-gray-400 font-semibold" id="spotlightPriceBs">7.862,50 Bs.</span>
 </div>
 </div>
 <button class="shrink-0 px-4 py-2.5 rounded-xl bg-white hover:bg-gray-100 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg transition-transform active:scale-95" id="spotlightActionBtn">
@@ -307,14 +309,6 @@
         </button>
       </div>
 </div>
-<!-- BCV Currency Indicator -->
-<div class="flex items-center gap-2 self-start md:self-auto bg-gray-50 border border-gray-200 px-3.5 py-1.5 rounded-xl text-xs">
-<span class="text-gray-500 font-medium">Tasa Referencial:</span>
-<span class="font-bold text-gray-900">1 USD = <span id="exchangeRateBadgeDisplay" class="">42.50</span> Bs.</span>
-<button id="btnAdjustRate" class="hidden text-gray-400 hover:text-gray-700 ml-1" onclick="openRateQuickModal()" title="Ajustar Tasa">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" aria-hidden="true" class="lucide lucide-refresh-cw w-3.5 h-3.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
-</button>
-</div>
 </div>
 </section>
 <!-- Sneakers Section -->
@@ -382,7 +376,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$185 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">7.862,50 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -447,7 +440,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$135 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">5.737,50 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -512,7 +504,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$240 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">10.200,00 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -577,7 +568,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$95 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">4.037,50 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -642,7 +632,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$160 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">6.800,00 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -707,7 +696,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$210 <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">8.925,00 Bs.</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -766,7 +754,6 @@
               <h4 class="font-bold text-sm text-white line-clamp-1">Hoodie Nike Club Fleece Oversized</h4>
               <div class="mt-1">
                 <span class="text-base font-black text-dynamic-accent">$65 USD</span>
-                <span class="text-xs text-gray-400 block">2.762,50 Bs.</span>
               </div>
             </div>
             <button onclick="orderStreetwearDirect('Hoodie Nike Club Fleece Oversized', 65)" class="mt-4 w-full py-2 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
@@ -786,7 +773,6 @@
               <h4 class="font-bold text-sm text-white line-clamp-1">Camiseta Jordan Flight Graphic Tee</h4>
               <div class="mt-1">
                 <span class="text-base font-black text-dynamic-accent">$40 USD</span>
-                <span class="text-xs text-gray-400 block">1.700,00 Bs.</span>
               </div>
             </div>
             <button onclick="orderStreetwearDirect('Camiseta Jordan Flight Graphic Tee', 40)" class="mt-4 w-full py-2 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
@@ -806,7 +792,6 @@
               <h4 class="font-bold text-sm text-white line-clamp-1">Gorra New Era 59FIFTY NY Yankees</h4>
               <div class="mt-1">
                 <span class="text-base font-black text-dynamic-accent">$45 USD</span>
-                <span class="text-xs text-gray-400 block">1.912,50 Bs.</span>
               </div>
             </div>
             <button onclick="orderStreetwearDirect('Gorra New Era 59FIFTY NY Yankees', 45)" class="mt-4 w-full py-2 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
@@ -826,7 +811,6 @@
               <h4 class="font-bold text-sm text-white line-clamp-1">Pantalón Cargo Streetwear Táctico</h4>
               <div class="mt-1">
                 <span class="text-base font-black text-dynamic-accent">$55 USD</span>
-                <span class="text-xs text-gray-400 block">2.337,50 Bs.</span>
               </div>
             </div>
             <button onclick="orderStreetwearDirect('Pantalón Cargo Streetwear Táctico', 55)" class="mt-4 w-full py-2 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
@@ -935,10 +919,6 @@
 <span class="">Subtotal en Divisas:</span>
 <span class="font-black text-gray-900 text-base" id="cartTotalUsd">$0.00 USD</span>
 </div>
-<div class="flex justify-between text-xs text-gray-500">
-<span class="">Monto aproximado en Bolívares:</span>
-<span class="font-bold text-gray-800" id="cartTotalBs">0,00 Bs.</span>
-</div>
 </div>
 <button class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95" onclick="checkoutToWhatsApp()">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-circle" aria-hidden="true" class="lucide lucide-message-circle w-4 h-4"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
@@ -980,7 +960,6 @@
 <div class="flex items-baseline justify-between mb-4">
 <div>
 <span class="text-2xl font-black text-gray-900" id="modalProductPriceUsd">$185 USD</span>
-<p class="text-xs font-semibold text-emerald-600" id="modalProductPriceBs">7.862,50 Bs.</p>
 </div>
 <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">En Stock USA</span>
 </div>
@@ -1028,7 +1007,6 @@
           <div class="flex items-baseline justify-between mb-4">
             <div>
               <span class="text-2xl font-black text-dynamic-accent" id="modalStreetwearPriceUsd">$65 USD</span>
-              <p class="text-xs font-semibold text-gray-400" id="modalStreetwearPriceBs">2.762,50 Bs.</p>
             </div>
             <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Disponible</span>
           </div>
@@ -1105,7 +1083,7 @@
 <button class="px-4 py-3 border-b-2 border-transparent hover:text-black flex items-center gap-1.5 whitespace-nowrap" id="tabBtn-order-manager" onclick="switchAdminTab('tab-order-manager')">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-down" aria-hidden="true" class="lucide lucide-arrow-up-down w-4 h-4"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg> Orden de Productos
       </button><button class="px-4 py-3 border-b-2 border-transparent hover:text-black flex items-center gap-1.5 whitespace-nowrap" id="tabBtn-rate" onclick="switchAdminTab('tab-rate')">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dollar-sign" aria-hidden="true" class="lucide lucide-dollar-sign w-4 h-4"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> Tasa &amp; Contacto
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dollar-sign" aria-hidden="true" class="lucide lucide-dollar-sign w-4 h-4"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> Contacto
       </button>
 <button class="px-4 py-3 border-b-2 border-transparent hover:text-black flex items-center gap-1.5 whitespace-nowrap" id="tabBtn-socials" onclick="switchAdminTab('tab-socials')">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2 w-4 h-4 text-dynamic-accent"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg> Redes Sociales
@@ -1282,20 +1260,13 @@
 </div>
 </div>
 </div><div class="tab-pane hidden space-y-4" id="tab-rate">
-<h4 class="font-bold text-gray-900 border-b pb-2">Configuración de Moneda y Canales</h4>
+<h4 class="font-bold text-gray-900 border-b pb-2">Contacto y WhatsApp</h4>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold text-gray-700 mb-1">Tasa de Cambio Referencial (1 USD en Bs.)</label>
-<div class="relative">
-<span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xs">Bs.</span>
-<input class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-xl" id="settingExchangeRate" step="0.01" type="number">
-</div>
-<p class="text-[11px] text-gray-400 mt-1">Recalcula todos los precios en Bolívares instantáneamente.</p>
-</div>
-<div>
-<label class="block text-xs font-bold text-gray-700 mb-1">WhatsApp para Pedidos (con código país sin +)</label>
-<input class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl" id="settingWhatsAppPhone" placeholder="584244126982" type="text">
-<p class="text-[11px] text-gray-400 mt-1">Ejemplo: 584244126982</p>
+<div class="sm:col-span-2">
+<label class="block text-xs font-bold text-gray-700 mb-1">Números de WhatsApp para pedidos (máx. 5, con código país sin +)</label>
+<div id="waNumbersList" class="space-y-2"></div>
+<button type="button" id="btnAddWaNumber" onclick="addWaNumberRow()" class="mt-2 px-3 py-1.5 text-xs font-bold rounded-lg bg-gray-900 text-white hover:bg-gray-700">+ Agregar número</button>
+<p class="text-[11px] text-gray-400 mt-1">Ejemplo: 584244126982. El primero se muestra en la página; al comprar, el cliente elige a cuál escribir.</p>
 </div>
 <div class="sm:col-span-2">
 <label class="block text-xs font-bold text-gray-700 mb-1">Correo Electrónico de Contacto</label>
@@ -1466,19 +1437,6 @@
 </div>
 </div>
 <!-- END: UniversalProductCreateEditModal -->
-<!-- BEGIN: RateQuickModal -->
-<div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="rateQuickModal">
-<div class="bg-white rounded-2xl max-w-xs w-full p-5 shadow-2xl border border-gray-200">
-<h4 class="font-bold text-sm text-gray-900 mb-2">Ajustar Tasa de Cambio</h4>
-<p class="text-xs text-gray-500 mb-3">Actualiza el multiplicador en Bs. para todos los productos:</p>
-<input class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl mb-3" id="quickRateInput" step="0.01" type="number">
-<div class="flex justify-end gap-2 text-xs">
-<button class="px-3 py-1.5 text-gray-500 hover:text-black" onclick="closeQuickRateModal()">Cancelar</button>
-<button class="px-4 py-1.5 bg-black text-white font-bold rounded-lg hover:bg-gray-800" onclick="saveQuickRateModal()">Actualizar</button>
-</div>
-</div>
-</div>
-<!-- END: RateQuickModal -->
 <!-- BEGIN: JavaScript Application State & Engine -->
 <script data-purpose="app-state-and-data">
   const AppState = {
@@ -1491,7 +1449,6 @@
     modalSelectedSize: null,
 
     config: {
-      exchangeRate: 42.50,
       whatsappPhone: '584244126982',
       contactEmail: 'owsuper85@gmail.com',
       accentColor: '#a3e635',
@@ -1634,10 +1591,6 @@
   };
 </script>
 <script data-purpose="app-renderers">
-  function formatBs(usdPrice) {
-    const bs = usdPrice * AppState.config.exchangeRate;
-    return bs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs.';
-  }
 
   function applyAccentColor(hex) {
     document.documentElement.style.setProperty('--accent-color', hex);
@@ -1750,7 +1703,6 @@
               <div>
                 <span class="text-[10px] text-gray-400 block leading-none font-bold uppercase">PRECIO FINAL</span>
                 <span class="text-xl font-black text-gray-900">$${product.priceUsd} <span class="text-xs font-semibold text-gray-500">USD</span></span>
-                <p class="text-xs font-bold text-emerald-600 leading-none">${formatBs(product.priceUsd)}</p>
               </div>
 
               <div class="flex items-center gap-1.5">
@@ -1780,7 +1732,6 @@
     document.getElementById('spotlightCategory').textContent = `${spotProduct.style} / EXCLUSIVO`;
     document.getElementById('spotlightTitle').textContent = spotProduct.title;
     document.getElementById('spotlightPriceUsd').textContent = `$${spotProduct.priceUsd} USD`;
-    document.getElementById('spotlightPriceBs').textContent = formatBs(spotProduct.priceUsd);
 
     const actionBtn = document.getElementById('spotlightActionBtn');
     actionBtn.onclick = () => openProductDetailModal(spotProduct.id);
@@ -1819,7 +1770,6 @@
               <h4 class="font-bold text-sm text-white line-clamp-1">${item.name}</h4>
               <div class="mt-1">
                 <span class="text-base font-black text-dynamic-accent">$${item.priceUsd} USD</span>
-                <span class="text-xs text-gray-400 block">${formatBs(item.priceUsd)}</span>
               </div>
             </div>
             <button onclick="orderStreetwearDirect('${item.name}', ${item.priceUsd})" class="mt-4 w-full py-2 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
@@ -1835,13 +1785,15 @@
 
   function renderGlobalInfo() {
     // Rates & Numbers
-    document.getElementById('exchangeRateBadgeDisplay').textContent = AppState.config.exchangeRate.toFixed(2);
-    document.getElementById('topBarPhoneDisplay').textContent = AppState.config.whatsappPhone;
-    document.getElementById('topBarPhoneDisplay2').textContent = AppState.config.whatsappPhone;
-    document.getElementById('heroPhoneBadge').textContent = AppState.config.whatsappPhone;
-    document.getElementById('footerPhoneText').textContent = AppState.config.whatsappPhone;
+    const mainPhone = getWaNumbers()[0].phone;
+    document.getElementById('topBarPhoneDisplay').textContent = mainPhone;
+    document.getElementById('topBarPhoneDisplay2').textContent = mainPhone;
+    document.getElementById('heroPhoneBadge').textContent = mainPhone;
+    document.getElementById('footerPhoneText').textContent = mainPhone;
     document.getElementById('footerEmailText').textContent = AppState.config.contactEmail;
-    document.getElementById('footerDirectWhatsAppLink').href = `https://wa.me/${AppState.config.whatsappPhone}?text=Hola%20RODFASHION,%20deseo%20información%20de%20su%20catálogo.`;
+    const footerWa = document.getElementById('footerDirectWhatsAppLink');
+    footerWa.href = '#';
+    footerWa.onclick = (e) => { e.preventDefault(); sendWhatsApp(encodeURIComponent('Hola RODFASHION, deseo información de su catálogo.')); };
 
     // Dynamic Header & Marquee Texts
     document.getElementById('topMarqueeText').textContent = AppState.config.marqueeText;
@@ -1870,19 +1822,23 @@
 
     // Social Links
     const socials = AppState.config.socials;
-    const makeSocialLinks = () => `
-      <a href="${socials.instagram}" target="_blank" class="hover:text-dynamic-accent transition-colors flex items-center gap-1 text-xs">
-        <i data-lucide="instagram" class="w-4 h-4"></i>
-      </a>
-      <a href="${socials.tiktok}" target="_blank" class="hover:text-dynamic-accent transition-colors flex items-center gap-1 text-xs">
-        <i data-lucide="video" class="w-4 h-4"></i>
-      </a>
-      <a href="${socials.facebook}" target="_blank" class="hover:text-dynamic-accent transition-colors flex items-center gap-1 text-xs">
-        <i data-lucide="facebook" class="w-4 h-4"></i>
-      </a>
-    `;
+    const socialIcons = {
+      instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>',
+      tiktok: '<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M16.6 5.8a4.3 4.3 0 0 1-3.1-1.3v7.9a5.4 5.4 0 1 1-4.6-5.3v2.4a3 3 0 1 0 2.1 2.9V2h2.5a4.3 4.3 0 0 0 3.1 3.8z"/></svg>',
+      facebook: '<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.6-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>',
+      youtube: '<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12a31 31 0 0 0-.5-4.8ZM9.8 15.3V8.7l6 3.3Z"/></svg>'
+    };
+    const makeSocialLinks = () => ['instagram', 'tiktok', 'facebook', 'youtube']
+      .filter(key => socials[key] && socials[key].trim())
+      .map(key => `
+        <a href="${socials[key]}" target="_blank" rel="noopener" class="hover:text-dynamic-accent transition-colors flex items-center gap-1 text-xs" title="${key}">
+          ${socialIcons[key]}
+        </a>
+      `).join('');
     document.getElementById('headerSocialsContainer').innerHTML = makeSocialLinks();
     document.getElementById('footerSocialsLinks').innerHTML = makeSocialLinks();
+    const heroSocials = document.getElementById('heroSocialsLinks');
+    if (heroSocials) heroSocials.innerHTML = makeSocialLinks();
 
     // Accent Color
     applyAccentColor(AppState.config.accentColor);
@@ -1988,7 +1944,6 @@
   function renderCartUI() {
     const container = document.getElementById('cartItemsContainer');
     const totalUsdEl = document.getElementById('cartTotalUsd');
-    const totalBsEl = document.getElementById('cartTotalBs');
 
     if (AppState.cart.length === 0) {
       container.innerHTML = `
@@ -1999,7 +1954,6 @@
         </div>
       `;
       totalUsdEl.textContent = '$0.00 USD';
-      totalBsEl.textContent = '0,00 Bs.';
       if (window.lucide) lucide.createIcons();
       return;
     }
@@ -2025,7 +1979,6 @@
     }).join('');
 
     totalUsdEl.textContent = `$${sumUsd.toFixed(2)} USD`;
-    totalBsEl.textContent = formatBs(sumUsd);
 
     if (window.lucide) lucide.createIcons();
   }
@@ -2042,16 +1995,13 @@
       return `• [Item ${index + 1}] ${item.title} - Talla: US ${item.size} ($${item.priceUsd} USD)`;
     }).join('%0A');
 
-    const totalBsText = formatBs(totalUsd);
     const message = `🔥 *HOLA RODFASHION.VE - NUEVO PEDIDO*%0A%0A` +
       `Me gustaría concretar la compra de los siguientes productos:%0A` +
       `${itemsText}%0A%0A` +
       `💵 *TOTAL USD:* $${totalUsd.toFixed(2)} USD%0A` +
-      `🇻🇪 *TOTAL REFERENCIAL:* ${totalBsText}%0A%0A` +
       `¿Podrían indicarme la disponibilidad inmediata y métodos de pago (Zelle / Pago Móvil / Efectivo)? ¡Gracias!`;
 
-    const waUrl = `https://wa.me/${AppState.config.whatsappPhone}?text=${message}`;
-    window.open(waUrl, '_blank');
+    sendWhatsApp(message);
   }
 
   function orderViaWhatsAppDirect(productId) {
@@ -2062,12 +2012,12 @@
 
   function orderStreetwearDirect(itemName, priceUsd) {
     const message = `Hola RODFASHION.VE, me interesa el artículo de Streetwear: *${itemName}* ($${priceUsd} USD). ¿Qué tallas tienen disponibles para envío?`;
-    window.open(`https://wa.me/${AppState.config.whatsappPhone}?text=${encodeURIComponent(message)}`, '_blank');
+    sendWhatsApp(encodeURIComponent(message));
   }
 
   function requestApparelCatalog() {
     const message = `Hola RODFASHION.VE, deseo ver el catálogo completo de hoodies, camisetas y accesorios Streetwear.`;
-    window.open(`https://wa.me/${AppState.config.whatsappPhone}?text=${encodeURIComponent(message)}`, '_blank');
+    sendWhatsApp(encodeURIComponent(message));
   }
 </script>
 <script data-purpose="product-detail-modal">
@@ -2085,7 +2035,6 @@
     document.getElementById('modalProductTitle').textContent = product.title;
     document.getElementById('modalProductDesc').textContent = product.desc;
     document.getElementById('modalProductPriceUsd').textContent = `$${product.priceUsd} USD`;
-    document.getElementById('modalProductPriceBs').textContent = formatBs(product.priceUsd);
     document.getElementById('modalSizeError').classList.add('hidden');
 
     renderModalSizes();
@@ -2141,8 +2090,8 @@
     }
     const p = AppState.modalCurrentProduct;
     const size = AppState.modalSelectedSize;
-    const msg = `Hola RODFASHION, deseo ordenar el modelo *${p.title}* en Talla *${size} US* ($${p.priceUsd} USD - ${formatBs(p.priceUsd)}). ¿Tienen disponibilidad?`;
-    window.open(`https://wa.me/${AppState.config.whatsappPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    const msg = `Hola RODFASHION, deseo ordenar el modelo *${p.title}* en Talla *${size} US* ($${p.priceUsd} USD). ¿Tienen disponibilidad?`;
+    sendWhatsApp(encodeURIComponent(msg));
     closeProductDetailModal();
   }
 </script>
@@ -2189,19 +2138,15 @@
     const btnDirectSneaker = document.getElementById('btnAdminAddSneakerDirect');
     const btnDirectStreetwear = document.getElementById('btnAdminAddStreetwearDirect');
 
-    const btnAdjustRate = document.getElementById('btnAdjustRate');
-
     if (AppState.isAdmin) {
       bar.classList.remove('hidden');
       btnDirectSneaker.classList.remove('hidden');
       btnDirectStreetwear.classList.remove('hidden');
-      if (btnAdjustRate) btnAdjustRate.classList.remove('hidden');
       loginBtn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i><span class="hidden md:inline">Admin (Activo)</span>`;
     } else {
       bar.classList.add('hidden');
       btnDirectSneaker.classList.add('hidden');
       btnDirectStreetwear.classList.add('hidden');
-      if (btnAdjustRate) btnAdjustRate.classList.add('hidden');
       loginBtn.innerHTML = `<i data-lucide="shield" class="w-4 h-4"></i><span class="hidden md:inline">Admin</span>`;
     }
     if (window.lucide) lucide.createIcons();
@@ -2226,9 +2171,7 @@
 
     document.getElementById('cfgFooterAbout').value = AppState.config.footerAbout;
     document.getElementById('cfgFooterCopyright').value = AppState.config.footerCopyright;
-
-    document.getElementById('settingExchangeRate').value = AppState.config.exchangeRate;
-    document.getElementById('settingWhatsAppPhone').value = AppState.config.whatsappPhone;
+    openWaNumbersEditor();
     document.getElementById('settingEmailContact').value = AppState.config.contactEmail;
     document.getElementById('settingShowStreetwearToggle').checked = AppState.config.showStreetwear;
     document.getElementById('customColorPicker').value = AppState.config.accentColor;
@@ -2289,11 +2232,7 @@
     AppState.config.footerCopyright = document.getElementById('cfgFooterCopyright').value.trim() || AppState.config.footerCopyright;
 
     // Financial & Contact
-    const rateVal = parseFloat(document.getElementById('settingExchangeRate').value);
-    if (!isNaN(rateVal) && rateVal > 0) {
-      AppState.config.exchangeRate = rateVal;
-    }
-    AppState.config.whatsappPhone = document.getElementById('settingWhatsAppPhone').value.trim() || AppState.config.whatsappPhone;
+    saveWaNumbersFromDraft();
     AppState.config.contactEmail = document.getElementById('settingEmailContact').value.trim() || AppState.config.contactEmail;
     AppState.config.showStreetwear = document.getElementById('settingShowStreetwearToggle').checked;
 
@@ -2532,27 +2471,6 @@
     renderAdminTables();
   }
 
-  function openRateQuickModal() {
-    if (!AppState.isAdmin) return;
-    document.getElementById('quickRateInput').value = AppState.config.exchangeRate;
-    document.getElementById('rateQuickModal').classList.remove('hidden');
-  }
-
-  function closeQuickRateModal() {
-    document.getElementById('rateQuickModal').classList.add('hidden');
-  }
-
-  function saveQuickRateModal() {
-    const val = parseFloat(document.getElementById('quickRateInput').value);
-    if (!isNaN(val) && val > 0) {
-      AppState.config.exchangeRate = val;
-      renderGlobalInfo();
-      renderProducts();
-      renderSpotlightHero();
-      renderStreetwear();
-      closeQuickRateModal();
-    }
-  }
 </script>
 <script data-purpose="interactions-and-init">
   function setBrandFilter(brand) {
@@ -2598,6 +2516,65 @@
   });
 </script>
 
+
+<script data-purpose="whatsapp-numbers">
+  // Lista de números (máx. 5). Si no existe, se crea desde el número antiguo.
+  function getWaNumbers() {
+    const list = Array.isArray(AppState.config.whatsappNumbers) ? AppState.config.whatsappNumbers.filter(n => n && n.phone) : [];
+    if (list.length) return list;
+    return [{ name: 'Whatsapp 1', phone: AppState.config.whatsappPhone || '584244126982' }];
+  }
+  function sendWhatsApp(encodedText) {
+    const nums = getWaNumbers();
+    if (nums.length === 1) { window.open(`https://wa.me/${nums[0].phone}?text=${encodedText}`, '_blank'); return; }
+    const box = document.getElementById('waPickerButtons');
+    box.innerHTML = '';
+    nums.forEach(n => {
+      const b = document.createElement('button');
+      b.className = 'w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm';
+      b.textContent = `${n.name} · ${n.phone}`;
+      b.onclick = () => { window.open(`https://wa.me/${n.phone}?text=${encodedText}`, '_blank'); closeWaPicker(); };
+      box.appendChild(b);
+    });
+    document.getElementById('waPickerModal').classList.remove('hidden');
+  }
+  function closeWaPicker() { document.getElementById('waPickerModal').classList.add('hidden'); }
+
+  // Editor del admin
+  let _waDraft = [];
+  function openWaNumbersEditor() { _waDraft = getWaNumbers().map(n => ({ ...n })); renderWaNumbersAdmin(); }
+  function renderWaNumbersAdmin() {
+    const box = document.getElementById('waNumbersList');
+    box.innerHTML = '';
+    _waDraft.forEach((n, i) => {
+      const row = document.createElement('div');
+      row.className = 'flex gap-2 items-center';
+      row.innerHTML = `<input class="w-1/3 px-3 py-2 text-sm border border-gray-300 rounded-xl" placeholder="Whatsapp ${i + 1}" value="">
+        <input class="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-xl" placeholder="584244126982" value="">
+        <button type="button" class="px-2 py-2 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-bold" ${_waDraft.length === 1 ? 'disabled style="opacity:.3"' : ''}>✕</button>`;
+      const [nameI, phoneI, del] = row.children;
+      nameI.value = n.name; phoneI.value = n.phone;
+      nameI.oninput = () => { _waDraft[i].name = nameI.value; };
+      phoneI.oninput = () => { _waDraft[i].phone = phoneI.value; };
+      del.onclick = () => { _waDraft.splice(i, 1); renderWaNumbersAdmin(); };
+      box.appendChild(row);
+    });
+    document.getElementById('btnAddWaNumber').style.display = _waDraft.length >= 5 ? 'none' : '';
+  }
+  function addWaNumberRow() {
+    if (_waDraft.length >= 5) return;
+    _waDraft.push({ name: `Whatsapp ${_waDraft.length + 1}`, phone: '' });
+    renderWaNumbersAdmin();
+  }
+  function saveWaNumbersFromDraft() {
+    const clean = _waDraft
+      .map((n, i) => ({ name: (n.name || '').trim() || `Whatsapp ${i + 1}`, phone: (n.phone || '').replace(/\D/g, '') }))
+      .filter(n => n.phone);
+    if (!clean.length) return; // al menos un número válido
+    AppState.config.whatsappNumbers = clean;
+    AppState.config.whatsappPhone = clean[0].phone;
+  }
+</script>
 <!-- BEGIN: CloudSync (Supabase) -->
 <script data-purpose="cloud-sync">
   // Carga la configuración, productos y streetwear guardados en la nube.
@@ -2651,12 +2628,12 @@
       try {
         const backup = JSON.parse(e.target.result);
 
-        if (!confirm('Esto reemplazará TODA tu configuración actual (productos, textos, tasa, etc.) con la del archivo de backup. ¿Continuar?')) {
+        if (!confirm('Esto reemplazará TODA tu configuración actual (productos, textos, números, etc.) con la del archivo de backup. ¿Continuar?')) {
           event.target.value = '';
           return;
         }
 
-        if (backup.config) Object.assign(AppState.config, backup.config);
+        if (backup.config) { delete AppState.config.whatsappNumbers; Object.assign(AppState.config, backup.config); }
         if (Array.isArray(backup.products)) AppState.products = backup.products;
         if (Array.isArray(backup.streetwear)) AppState.streetwear = backup.streetwear;
         if (typeof backup.spotlightId !== 'undefined') AppState.spotlightId = backup.spotlightId;
@@ -2941,4 +2918,14 @@
 
   // 5. Ejecutar renderSocialLinks inmediatamente
   renderSocialLinks();
-</script></body></html>
+</script><!-- BEGIN: WaPickerModal -->
+<div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[70] hidden flex items-center justify-center p-4" id="waPickerModal">
+<div class="bg-white rounded-2xl p-5 w-full max-w-xs shadow-2xl">
+<h4 class="font-bold text-sm text-gray-900 mb-1">¿Con qué WhatsApp quieres escribir?</h4>
+<p class="text-xs text-gray-500 mb-3">Elige el número para enviar tu pedido:</p>
+<div id="waPickerButtons" class="space-y-2"></div>
+<button class="mt-3 w-full text-xs text-gray-500 hover:text-black" onclick="closeWaPicker()">Cancelar</button>
+</div>
+</div>
+<!-- END: WaPickerModal -->
+</body></html>
